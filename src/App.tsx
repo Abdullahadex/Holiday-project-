@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./index.css";
 import { HashRouter as Router, Routes, Route, useNavigate, useParams } from "react-router-dom";
