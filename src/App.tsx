@@ -1,7 +1,17 @@
 import { motion, AnimatePresence } from "framer-motion";
 import "./index.css";
-import { HashRouter as Router, Routes, Route, useNavigate, useParams, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { HashRouter as Router, Routes, Route, useNavigate, useLocation, useParams } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import Goals from "./components/Goals";
+import AuthPage from "./components/AuthPage";
+import LandingPage from "./home";
+
+interface Goal {
+  id: number;
+  text: string;
+  completed: boolean;
+  createdAt: Date;
+}
 
 const activities: { [key: string]: { name: string; description: string; difficulty: string; time: string; tools: string; icon: string; }[] } = {
   skill: [
@@ -184,48 +194,49 @@ function QuestionnairePage() {
             {questions[currentQuestion].question}
           </motion.h2>
 
-          <div className="flex flex-col gap-4">
-            {questions[currentQuestion].options.map((option, index) => (
-              <motion.button
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ 
-                  opacity: 1, 
-                  y: 0,
-                  scale: selectedOption === index ? 1.05 : 1,
-                 
-                }}
-                transition={{ 
-                  duration: 0.4, 
-                  delay: 0.2 * index,
-                  type: "spring",
-                  stiffness: 300
-                }}
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: "0 8px 32px 0 rgba(99,102,241,0.25)"
-                }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => handleAnswer(option, index)}
-                className={`relative bg-violet-600 hover:bg-violet-700 text-white text-lg px-8 py-4 rounded-full shadow-xl transition-all duration-300 font-bold hover:shadow-2xl overflow-hidden group`}
-              >
-                <motion.div
-                  initial={{ x: -100, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.1 * index }}
-                  className="absolute left-4 text-2xl"
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-72">
+              {questions[currentQuestion].options.map((option, index) => (
+                <motion.button
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ 
+                    opacity: 1, 
+                    y: 0,
+                    scale: selectedOption === index ? 1.05 : 1,
+                  }}
+                  transition={{ 
+                    duration: 0.4, 
+                    delay: 0.2 * index,
+                    type: "spring",
+                    stiffness: 300
+                  }}
+                  whileHover={{ 
+                    scale: 1.05,
+                    boxShadow: "0 8px 32px 0 rgba(99,102,241,0.25)"
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleAnswer(option, index)}
+                  className="relative bg-violet-600 hover:bg-violet-700 text-white text-base px-6 py-3 rounded-full shadow-xl transition-all duration-300 font-bold hover:shadow-2xl overflow-hidden group w-full mb-4"
                 >
-                  {questions[currentQuestion].icons[index]}
-                </motion.div>
-                <span className="ml-8">{option}</span>
-                <motion.div
-                  className="absolute inset-0 bg-white/20"
-                  initial={{ x: "-100%" }}
-                  animate={{ x: selectedOption === index ? "0%" : "-100%" }}
-                  transition={{ duration: 0.3 }}
-                />
-              </motion.button>
-            ))}
+                  <motion.div
+                    initial={{ x: -100, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.1 * index }}
+                    className="absolute left-4 text-2xl"
+                  >
+                    {questions[currentQuestion].icons[index]}
+                  </motion.div>
+                  <span className="ml-8">{option}</span>
+                  <motion.div
+                    className="absolute inset-0 bg-white/20"
+                    initial={{ x: "-100%" }}
+                    animate={{ x: selectedOption === index ? "0%" : "-100%" }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.button>
+              ))}
+            </div>
           </div>
 
           {/* Fun decorative elements */}
@@ -254,55 +265,11 @@ function QuestionnairePage() {
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
-              className="absolute bottom-10 left-10 text-4xl"
+              className="absolute bottom-10 left-10 text-5xl"
             >
-              🌟
+              🚀
             </motion.div>
           </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-function LandingPage() {
-  const navigate = useNavigate();
-  return (
-    <div className="h-screen w-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-pink-50 overflow-hidden">
-      <div className="flex flex-col items-center w-full max-w-2xl gap-y-8 text-center px-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 30 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="bg-white/10 backdrop-blur-lg p-12 rounded-3xl shadow-2xl"
-        >
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-4xl sm:text-6xl md:text-7xl font-black text-violet-800 mb-6"
-          >
-            Welcome to Dabbly <span role="img" aria-label="wave">👋</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg sm:text-xl md:text-2xl text-gray-700 mb-8"
-          >
-            Feeling bored? Let's help you find something awesome to try out!
-          </motion.p>
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.6 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => navigate("/questionnaire")}
-            className="bg-violet-600 hover:bg-violet-700 text-white text-xl px-10 py-4 rounded-full shadow-xl transition-all duration-300 font-bold hover:shadow-2xl"
-          >
-            Let's Dabble 🎯
-          </motion.button>
         </motion.div>
       </div>
     </div>
@@ -310,222 +277,336 @@ function LandingPage() {
 }
 
 function OptionsPage() {
-  const navigate = useNavigate();
   const location = useLocation();
-  const answers = location.state?.answers || [];
-  
+  const navigate = useNavigate();
+  const { answers } = location.state || { answers: [] };
+  const [suggestedActivity, setSuggestedActivity] = useState<any>(null);
+
+  useEffect(() => {
+    if (answers.length > 0) {
+      setSuggestedActivity(getSuggestedCategory());
+    }
+  }, [answers]);
+
   const getSuggestedCategory = () => {
-    if (answers.length === 0) return null;
-    
-    const [timeAnswer, energyAnswer, socialAnswer] = answers;
-    
-    // Logic to determine suggested category based on answers
-    if (timeAnswer.includes("Quick")) {
-      if (energyAnswer.includes("Low")) return "fun";
-      if (energyAnswer.includes("High")) return "challenge";
+    const energyLevel = answers[1]; // "Low", "Medium", "High"
+    const socialPreference = answers[2]; // "Solo", "Group", "Either"
+
+    if (energyLevel === "Low - Want something relaxing") {
+      return getRandomActivity("fun");
+    } else if (energyLevel === "High - Bring it on!") {
+      return getRandomActivity("challenge");
+    } else {
+      // Medium energy, consider social preference
+      if (socialPreference === "Solo activity") {
+        return getRandomActivity("skill");
+      } else if (socialPreference === "Group activity") {
+        return getRandomActivity("fun");
+      } else {
+        return getRandomActivity(Object.keys(activities)[Math.floor(Math.random() * Object.keys(activities).length)]);
+      }
     }
-    
-    if (timeAnswer.includes("Long")) {
-      if (energyAnswer.includes("Low")) return "skill";
-      if (energyAnswer.includes("High")) return "challenge";
-    }
-    
-    if (socialAnswer.includes("Group")) return "fun";
-    if (socialAnswer.includes("Solo")) return "skill";
-    
-    return "surprise";
   };
 
-  const suggestedCategory = getSuggestedCategory();
+  const getRandomActivity = (category: string) => {
+    const categoryActivities = activities[category];
+    return categoryActivities[Math.floor(Math.random() * categoryActivities.length)];
+  };
+
+  const handleGoBack = () => {
+    navigate("/questionnaire");
+  };
+
+  const handleDabbleAgain = () => {
+    setSuggestedActivity(getSuggestedCategory());
+  };
+
+  const handleStartActivity = () => {
+    if (suggestedActivity) {
+      navigate(`/activity/${suggestedActivity.name}`, { state: { activity: suggestedActivity } });
+    }
+  };
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-pink-50 overflow-hidden">
-      <div className="flex flex-col w-full max-w-6xl gap-y-8 text-center px-4">
+    <div className="h-screen w-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-50 to-indigo-50 text-gray-800 p-4">
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-center mb-8"
+      >
+        <h1 className="text-5xl font-extrabold text-purple-700 mb-4">Your Dabble Suggestion!</h1>
+        <p className="text-xl text-indigo-600">Based on your answers, here's an idea for you.</p>
+      </motion.div>
+
+      {suggestedActivity ? (
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 30 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 30 }}
-          transition={{ duration: 0.5 }}
-          className="bg-white/10 backdrop-blur-lg p-12 rounded-3xl shadow-2xl"
+          key={suggestedActivity.name}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+          className="bg-white rounded-3xl shadow-2xl p-8 max-w-xl w-full text-center transform hover:scale-105 transition-transform duration-300 relative"
         >
-          <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">
-            Choose Your Adventure
-          </h2>
-          {suggestedCategory && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-8"
-            >
-              <p className="text-white/90 text-lg mb-4">Based on your preferences, we think you might enjoy:</p>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => navigate(`/activity/${suggestedCategory}`)}
-                className="bg-white/20 hover:bg-white/30 text-white text-xl px-8 py-4 rounded-full shadow-xl transition-all duration-300 font-bold hover:shadow-2xl mb-8"
-              >
-                {suggestedCategory === "skill" && "🧠 Learn a Skill"}
-                {suggestedCategory === "fun" && "🎉 Have Fun"}
-                {suggestedCategory === "challenge" && "🧗‍♂️ Take a Challenge"}
-                {suggestedCategory === "surprise" && "✨ Surprise Me"}
-              </motion.button>
-            </motion.div>
-          )}
-          <p className="text-white/80 mb-16 text-lg">Or choose any category that interests you:</p>
-          <div className="grid grid-cols-2 gap-12 w-full max-w-4xl mx-auto px-8">
-            <motion.button
-              whileHover={{ scale: 1.02, boxShadow: "0 8px 32px 0 rgba(99,102,241,0.25)" }}
-              whileTap={{ scale: 0.98 }}
-              className="bg-white/10 backdrop-blur-lg shadow-xl rounded-2xl p-10 flex flex-col items-center justify-center transition-all duration-300 hover:bg-white/20 group h-44"
-              onClick={() => navigate('/activity/skill')}
-            >
-              <span className="text-5xl mb-6 group-hover:scale-110 transition-transform">🧠</span>
-              <span className="text-2xl font-bold text-white group-hover:text-white/90">Learn a Skill</span>
-              <span className="text-white/70 text-sm mt-3">Expand your knowledge</span>
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.02, boxShadow: "0 8px 32px 0 rgba(34,197,94,0.18)" }}
-              whileTap={{ scale: 0.98 }}
-              className="bg-white/10 backdrop-blur-lg shadow-xl rounded-2xl p-10 flex flex-col items-center justify-center transition-all duration-300 hover:bg-white/20 group h-44"
-              onClick={() => navigate('/activity/fun')}
-            >
-              <span className="text-5xl mb-6 group-hover:scale-110 transition-transform">🎉</span>
-              <span className="text-2xl font-bold text-white group-hover:text-white/90">Have Fun</span>
-              <span className="text-white/70 text-sm mt-3">Enjoy the moment</span>
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.02, boxShadow: "0 8px 32px 0 rgba(253,224,71,0.18)" }}
-              whileTap={{ scale: 0.98 }}
-              className="bg-white/10 backdrop-blur-lg shadow-xl rounded-2xl p-10 flex flex-col items-center justify-center transition-all duration-300 hover:bg-white/20 group h-44"
-              onClick={() => navigate('/activity/challenge')}
-            >
-              <span className="text-5xl mb-6 group-hover:scale-110 transition-transform">🧗‍♂️</span>
-              <span className="text-2xl font-bold text-white group-hover:text-white/90">Take a Challenge</span>
-              <span className="text-white/70 text-sm mt-3">Push your limits</span>
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.02, boxShadow: "0 8px 32px 0 rgba(244,114,182,0.18)" }}
-              whileTap={{ scale: 0.98 }}
-              className="bg-white/10 backdrop-blur-lg shadow-xl rounded-2xl p-10 flex flex-col items-center justify-center transition-all duration-300 hover:bg-white/20 group h-44"
-              onClick={() => navigate('/activity/surprise')}
-            >
-              <span className="text-5xl mb-6 group-hover:scale-110 transition-transform">✨</span>
-              <span className="text-2xl font-bold text-white group-hover:text-white/90">Surprise Me</span>
-              <span className="text-white/70 text-sm mt-3">Discover something new</span>
-            </motion.button>
+          <div className="absolute top-4 right-4 text-5xl">{suggestedActivity.icon}</div>
+          <h2 className="text-4xl font-bold text-purple-800 mb-4">{suggestedActivity.name}</h2>
+          <p className="text-lg text-gray-700 mb-4">{suggestedActivity.description}</p>
+          <div className="flex justify-center flex-wrap gap-x-6 gap-y-3 text-purple-600 font-semibold mb-6">
+            <span className="flex items-center"><span className="text-2xl mr-2">🌟</span> {suggestedActivity.difficulty}</span>
+            <span className="flex items-center"><span className="text-2xl mr-2">⏱️</span> {suggestedActivity.time}</span>
+            <span className="flex items-center"><span className="text-2xl mr-2">🛠️</span> {suggestedActivity.tools}</span>
           </div>
+          <button
+            onClick={handleStartActivity}
+            className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xl px-8 py-3 rounded-full shadow-lg hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 transform hover:-translate-y-1"
+          >
+            Start Dabbling!
+          </button>
         </motion.div>
+      ) : (
+        <p className="text-xl text-gray-600">Generating your suggestion...</p>
+      )}
+
+      <div className="mt-8 flex space-x-4">
+        <button
+          onClick={handleDabbleAgain}
+          className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2 rounded-full shadow transition-all duration-300"
+        >
+          Dabble Again!
+        </button>
+        <button
+          onClick={handleGoBack}
+          className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-full shadow transition-all duration-300"
+        >
+          Go Back
+        </button>
       </div>
+
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="absolute top-10 left-10 text-8xl opacity-10"
+      >
+        🌀
+      </motion.div>
+      <motion.div
+        animate={{ x: [0, 100, 0], y: [0, 50, 0] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-10 right-10 text-9xl opacity-10"
+      >
+        ✨
+      </motion.div>
     </div>
   );
 }
 
-function ActivityPage() {
-  const { vibe } = useParams();
+interface ActivityPageProps {
+  onAddGoal: (text: string) => void;
+}
+
+function ActivityPage({ onAddGoal }: ActivityPageProps) {
+  const location = useLocation();
   const navigate = useNavigate();
-  const [currentActivity, setCurrentActivity] = useState(() => {
-    if (vibe && activities[vibe]) {
-      const list = activities[vibe];
-      return list[Math.floor(Math.random() * list.length)];
+  const { activity } = location.state || {};
+
+  useEffect(() => {
+    if (!activity) {
+      navigate("/options"); // Redirect if no activity is found
     }
-    return {
-      name: "Random Adventure!",
-      description: "Try something new and exciting!",
-      difficulty: "Any",
-      time: "Any",
-      tools: "Surprise!",
-      icon: "🎲"
-    };
-  });
+  }, [activity, navigate]);
 
   const getNewActivity = () => {
-    if (vibe && activities[vibe]) {
-      const list = activities[vibe];
-      const newActivity = list[Math.floor(Math.random() * list.length)];
-      setCurrentActivity(newActivity);
+    navigate("/questionnaire");
+  };
+
+  const handleAddActivityToGoals = () => {
+    if (activity) {
+      onAddGoal(activity.name);
+      alert(`${activity.name} added to your goals!`);
     }
   };
 
+  const handleStartActivity = () => {
+    alert(`Starting: ${activity.name}!`);
+    // In a real app, you'd navigate to a specific activity detail page or start a timer.
+  };
+
+  if (!activity) {
+    return null; // Or a loading spinner
+  }
+
   return (
-    <div className="h-screen w-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-pink-50 overflow-hidden">
-      <div className="flex flex-col items-center w-full max-w-6xl gap-y-8 text-center px-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 30 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 30 }}
-          transition={{ duration: 0.5 }}
-          className="bg-white/10 backdrop-blur-lg shadow-2xl w-full flex border border-white/20 rounded-3xl overflow-hidden"
+    <div className="h-screen w-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-50 to-teal-50 text-gray-800 p-4">
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-center mb-8"
+      >
+        <h1 className="text-5xl font-extrabold text-green-700 mb-4">Time to Dabble!</h1>
+        <p className="text-xl text-teal-600">Here's your chosen activity.</p>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+        className="bg-white rounded-3xl shadow-2xl p-8 max-w-xl w-full text-center relative"
+      >
+        <div className="absolute top-4 right-4 text-5xl">{activity.icon}</div>
+        <h2 className="text-4xl font-bold text-green-800 mb-4">{activity.name}</h2>
+        <p className="text-lg text-gray-700 mb-4">{activity.description}</p>
+        <div className="flex justify-center flex-wrap gap-x-6 gap-y-3 text-green-600 font-semibold mb-6">
+          <span className="flex items-center"><span className="text-2xl mr-2">🌟</span> {activity.difficulty}</span>
+          <span className="flex items-center"><span className="text-2xl mr-2">⏱️</span> {activity.time}</span>
+          <span className="flex items-center"><span className="text-2xl mr-2">🛠️</span> {activity.tools}</span>
+        </div>
+        <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+          <button
+            onClick={handleStartActivity}
+            className="bg-gradient-to-r from-green-600 to-teal-600 text-white text-base px-6 py-2 rounded-full shadow-lg hover:from-green-700 hover:to-teal-700 transition-all duration-300 transform hover:-translate-y-1"
+          >
+            Begin Activity
+          </button>
+          <button
+            onClick={handleAddActivityToGoals}
+            className="bg-purple-600 hover:bg-purple-700 text-white text-base px-6 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+          >
+            Add to My Goals
+          </button>
+        </div>
+      </motion.div>
+
+      <div className="mt-8 flex space-x-4">
+        <button
+          onClick={getNewActivity}
+          className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-full shadow transition-all duration-300"
         >
-          {/* Left side - Activity Icon and Info */}
-          <div className="w-1/3 bg-white/5 p-8 flex flex-col items-center justify-center border-r border-white/10">
-            <motion.div
-              initial={{ scale: 0.8, rotate: -10 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ duration: 0.5, type: "spring" }}
-              className="text-8xl mb-8"
-            >
-              {currentActivity.icon}
-            </motion.div>
-            <div className="space-y-4 w-full text-center">
-              <div className="text-white">
-                <span className="text-white/70 text-base block">Difficulty</span>
-                <span className="font-medium text-lg">{currentActivity.difficulty}</span>
-              </div>
-              <div className="text-white">
-                <span className="text-white/70 text-base block">Time</span>
-                <span className="font-medium text-lg">{currentActivity.time}</span>
-              </div>
-              <div className="text-white">
-                <span className="text-white/70 text-base block">Tools</span>
-                <span className="font-medium text-lg">{currentActivity.tools}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Right side - Activity Details and Actions */}
-          <div className="w-2/3 p-8 flex flex-col">
-            <h2 className="text-4xl font-black text-white mb-6">
-              {currentActivity.name}
-            </h2>
-            
-            <p className="text-white/90 text-xl mb-8 leading-relaxed">
-              {currentActivity.description}
-            </p>
-
-            <div className="mt-auto space-y-4">
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={getNewActivity}
-                className="w-full bg-gradient-to-r from-violet-600 to-violet-700 text-white text-xl px-8 py-4 rounded-xl shadow-xl transition-all duration-300 font-bold hover:shadow-2xl flex items-center justify-center gap-3"
-              >
-                <span className="text-2xl">🎲</span>
-                <span>Discover Another Activity</span>
-              </motion.button>
-              
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => navigate("/options")}
-                className="w-full bg-white/10 hover:bg-white/20 text-white text-xl px-8 py-4 rounded-xl shadow-xl transition-all duration-300 font-bold hover:shadow-2xl flex items-center justify-center gap-3"
-              >
-                <span className="text-2xl">📋</span>
-                <span>Back to Categories</span>
-              </motion.button>
-              
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => navigate("/")}
-                className="w-full bg-white/10 hover:bg-white/20 text-white text-xl px-8 py-4 rounded-xl shadow-xl transition-all duration-300 font-bold hover:shadow-2xl flex items-center justify-center gap-3"
-              >
-                <span className="text-2xl">↩️</span>
-                <span>Return to Home</span>
-              </motion.button>
-            </div>
-          </div>
-        </motion.div>
+          Explore Other Dabbles
+        </button>
       </div>
+
+      <motion.div
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-10 right-10 text-8xl opacity-10"
+      >
+        💡
+      </motion.div>
+      <motion.div
+        animate={{ rotate: -360 }}
+        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+        className="absolute bottom-10 left-10 text-9xl opacity-10"
+      >
+        ⚙️
+      </motion.div>
+    </div>
+  );
+}
+
+function AppContent() {
+  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return localStorage.getItem('dabbly_user_token') !== null;
+  });
+
+  const [goals, setGoals] = useState<Goal[]>(() => {
+    const savedGoals = localStorage.getItem('dabbly_goals');
+    return savedGoals ? JSON.parse(savedGoals) : [];
+  });
+
+  const initialNavigationDone = useRef(false);
+
+  useEffect(() => {
+    localStorage.setItem('dabbly_goals', JSON.stringify(goals));
+  }, [goals]);
+
+  const addGoal = (text: string) => {
+    const newGoal: Goal = {
+      id: Date.now(),
+      text,
+      completed: false,
+      createdAt: new Date(),
+    };
+    setGoals((prevGoals) => [...prevGoals, newGoal]);
+  };
+
+  const toggleGoal = (id: number) => {
+    setGoals((prevGoals) =>
+      prevGoals.map((goal) =>
+        goal.id === id ? { ...goal, completed: !goal.completed } : goal
+      )
+    );
+  };
+
+  const deleteGoal = (id: number) => {
+    setGoals((prevGoals) => prevGoals.filter((goal) => goal.id !== id));
+  };
+
+  const onLoginSuccess = () => {
+    setIsAuthenticated(true);
+    navigate('/questionnaire');
+  };
+
+  useEffect(() => {
+    if (!initialNavigationDone.current) {
+      if (isAuthenticated) {
+        navigate('/questionnaire');
+      } else {
+        navigate('/');
+      }
+      initialNavigationDone.current = true;
+    }
+  }, [isAuthenticated, navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('dabbly_user_token');
+    localStorage.removeItem('dabbly_user_email');
+    setIsAuthenticated(false);
+    navigate('/');
+  };
+
+  return (
+    <div className="font-sans antialiased text-gray-800">
+      <nav className="p-4 bg-white shadow-md flex justify-between items-center fixed w-full top-0 z-10">
+        <div>
+          {isAuthenticated && (
+            <>
+              <button
+                onClick={() => navigate('/my-goals')}
+                className="mr-4 text-violet-600 hover:text-violet-800 font-medium"
+              >
+                My Goals
+              </button>
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full text-sm font-medium"
+              >
+                Logout
+              </button>
+            </>
+          )}
+        </div>
+      </nav>
+
+      <main className="pt-16">
+        <AnimatePresence mode="wait">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/auth" element={<AuthPage onLoginSuccess={onLoginSuccess} />} />
+            <Route path="/questionnaire" element={<QuestionnairePage />} />
+            <Route path="/options" element={<OptionsPage />} />
+            <Route
+              path="/activity/:activityName"
+              element={<ActivityPage onAddGoal={addGoal} />}
+            />
+            <Route
+              path="/my-goals"
+              element={<Goals goals={goals} toggleGoal={toggleGoal} onDeleteGoal={deleteGoal} onAddGoal={addGoal} />}
+            />
+            <Route path="*" element={<LandingPage />} />
+          </Routes>
+        </AnimatePresence>
+      </main>
     </div>
   );
 }
@@ -533,14 +614,7 @@ function ActivityPage() {
 export default function App() {
   return (
     <Router>
-      <AnimatePresence mode="wait">
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/questionnaire" element={<QuestionnairePage />} />
-          <Route path="/options" element={<OptionsPage />} />
-          <Route path="/activity/:vibe" element={<ActivityPage />} />
-        </Routes>
-      </AnimatePresence>
+      <AppContent />
     </Router>
   );
 }

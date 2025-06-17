@@ -7,8 +7,7 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: {
-    '@tailwindcss/postcss': {},
-    autoprefixer: {},
-  },
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 } 
