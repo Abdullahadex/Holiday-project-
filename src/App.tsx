@@ -424,7 +424,7 @@ function ActivityPage({ onAddGoal }: ActivityPageProps) {
   }, [activity, navigate]);
 
   const getNewActivity = () => {
-    navigate("/options");
+    navigate("/questionnaire");
   };
 
   const handleAddActivityToGoals = () => {
@@ -436,28 +436,23 @@ function ActivityPage({ onAddGoal }: ActivityPageProps) {
 
   const handleStartActivity = () => {
     if (activity) {
-      const videoIds: { [key: string]: string } = {
-        "Learn to Code": "rfscVS0vtbw",
-        "Photography Basics": "CemKKi57d9U",
-        "Write a Short Story": "WJ9-mtGCNxE",
-        "Dance Challenge": "CQYELiTtUs8",
-        "DIY Craft": "6QqBvy_yO_M",
-        "Movie Quiz Night": "playlist?list=PLmZTDWJGfRq0jZtXzQz8QJQz8QJQz8QJQ",
-        "30-Day Push-Up Challenge": "IODxDxX7oi4",
-        "Cold Shower Dare": "pYaczenJlq8",
-        "No Sugar Day": "lEXBxijQREo",
-        "Random Act of Kindness": "nwAYpLVyeFU",
-        "Try a New Recipe": "AnvHDuEz-iY",
-        "Backyard Camping": "ZgHvdm9MhYU"
+      const videoLinks: { [key: string]: string } = {
+        "Learn to Code": "https://www.youtube.com/@freecodecamp",
+        "Photography Basics": "https://www.youtube.com/@petermckinnon",
+        "Write a Short Story": "https://www.youtube.com/@brandonsanderson",
+        "Dance Challenge": "https://www.youtube.com/@MattSDance",
+        "DIY Craft": "https://www.youtube.com/@5MinuteCraftsYouTube",
+        "Movie Quiz Night": "https://www.youtube.com/@CinemaSins",
+        "30-Day Push-Up Challenge": "https://www.youtube.com/@ATHLEANX",
+        "Cold Shower Dare": "https://www.youtube.com/@wimhof1",
+        "No Sugar Day": "https://www.youtube.com/@DrEricBergDC",
+        "Random Act of Kindness": "https://www.youtube.com/@soulpancake",
+        "Try a New Recipe": "https://www.youtube.com/@babishculinaryuniverse",
+        "Backyard Camping": "https://www.youtube.com/@rei"
       };
-      
-      const videoId = videoIds[activity.name];
-      if (videoId) {
-        if (videoId.startsWith('playlist')) {
-          window.open(`https://www.youtube.com/${videoId}`, '_blank');
-        } else {
-          window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
-        }
+      const link = videoLinks[activity.name];
+      if (link) {
+        window.open(link, '_blank');
       } else {
         alert(`Starting: ${activity.name}!`);
       }
@@ -547,7 +542,6 @@ function AppContent() {
     const savedGoals = localStorage.getItem('dabbly_goals');
     return savedGoals ? JSON.parse(savedGoals) : [];
   });
-
   const initialNavigationDone = useRef(false);
 
   useEffect(() => {
@@ -580,17 +574,6 @@ function AppContent() {
     setIsAuthenticated(true);
     navigate('/questionnaire');
   };
-
-  useEffect(() => {
-    if (!initialNavigationDone.current) {
-      if (isAuthenticated) {
-        navigate('/questionnaire');
-      } else {
-        navigate('/');
-      }
-      initialNavigationDone.current = true;
-    }
-  }, [isAuthenticated, navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem('dabbly_user_token');
@@ -652,3 +635,4 @@ export default function App() {
     </Router>
   );
 }
+
