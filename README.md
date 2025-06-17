@@ -1,13 +1,13 @@
-# Skill Spark
+# Holiday App
 
-A modern web application designed to help users discover and engage with new activities and hobbies. Built with React, TypeScript, and Tailwind CSS.
+A modern web application designed to help users discover and plan holiday activities. Built with React, TypeScript, and Tailwind CSS.
 
 ## Features
 
-- 🎯 Personalized activity suggestions based on user preferences
-- 📝 Interactive questionnaire to understand user interests
+- 🎯 Personalized holiday activity suggestions
+- 📝 Interactive questionnaire to understand user preferences
 - 🎨 Beautiful, responsive UI with smooth animations
-- 🎯 Goal tracking system for activities
+- 🎯 Goal tracking system for holiday activities
 - 🔐 User authentication system
 - 📱 Mobile-friendly design
 
@@ -31,8 +31,8 @@ A modern web application designed to help users discover and engage with new act
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/YOUR_USERNAME/skill-spark.git
-cd skill-spark
+git clone https://github.com/YOUR_USERNAME/holiday-app.git
+cd holiday-app
 ```
 
 2. Install dependencies:
@@ -54,7 +54,7 @@ yarn start
 ## Project Structure
 
 ```
-skill-spark/
+holiday-app/
 ├── src/
 │   ├── components/     # Reusable components
 │   ├── App.tsx        # Main application component
@@ -78,4 +78,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Acknowledgments
 
 - Icons and emojis used in the application
-- Inspiration from various activity suggestion platforms
+- Inspiration from various holiday planning platforms
