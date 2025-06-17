@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import "./index.css";
 import { HashRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Goals from "./components/Goals";
 import AuthPage from "./components/AuthPage";
 import LandingPage from "./home";
