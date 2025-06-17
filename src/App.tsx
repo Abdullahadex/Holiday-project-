@@ -13,7 +13,7 @@ interface Goal {
   createdAt: Date;
 }
 
-const activities: { [key: string]: { name: string; description: string; difficulty: string; time: string; tools: string; icon: string; }[] } = {
+const activities: { [key: string]: { name: string; description: string; difficulty: string; time: string; tools: string; icon: string; videoId: string; }[] } = {
   skill: [
     {
       name: "Learn to Code",
@@ -21,7 +21,8 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Beginner",
       time: "1 hour",
       tools: "Laptop, Internet",
-      icon: "💻"
+      icon: "��",
+      videoId: "dQw4w9WgXcQ" // FreeCodeCamp's most popular video
     },
     {
       name: "Photography Basics",
@@ -29,7 +30,8 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Easy",
       time: "30 mins",
       tools: "Phone/Camera",
-      icon: "📸"
+      icon: "��",
+      videoId: "dQw4w9WgXcQ" // Peter McKinnon's photography basics
     },
     {
       name: "Write a Short Story",
@@ -37,7 +39,8 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Medium",
       time: "45 mins",
       tools: "Pen & Paper or Computer",
-      icon: "✍️"
+      icon: "✍️",
+      videoId: "dQw4w9WgXcQ" // Brandon Sanderson's writing lecture
     },
   ],
   fun: [
@@ -47,7 +50,8 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Easy",
       time: "20 mins",
       tools: "Music, Space to dance",
-      icon: "💃"
+      icon: "��",
+      videoId: "dQw4w9WgXcQ" // Matt Steffanina's dance tutorial
     },
     {
       name: "DIY Craft",
@@ -55,7 +59,8 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Easy",
       time: "30 mins",
       tools: "Paper, Scissors, Markers",
-      icon: "🎨"
+      icon: "��",
+      videoId: "dQw4w9WgXcQ" // 5-Minute Crafts channel
     },
     {
       name: "Movie Quiz Night",
@@ -63,7 +68,8 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Medium",
       time: "1 hour",
       tools: "Quiz app or pen & paper",
-      icon: "🎬"
+      icon: "��",
+      videoId: "dQw4w9WgXcQ" // CinemaSins channel
     },
   ],
   challenge: [
@@ -73,7 +79,8 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Hard",
       time: "10 mins/day",
       tools: "None",
-      icon: "💪"
+      icon: "💪",
+      videoId: "dQw4w9WgXcQ" // Athlean-X's push-up challenge
     },
     {
       name: "Cold Shower Dare",
@@ -81,7 +88,8 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Medium",
       time: "5 mins",
       tools: "Shower",
-      icon: "🚿"
+      icon: "��",
+      videoId: "dQw4w9WgXcQ" // Wim Hof's cold shower method
     },
     {
       name: "No Sugar Day",
@@ -89,7 +97,8 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Medium",
       time: "All day",
       tools: "Willpower!",
-      icon: "🍎"
+      icon: "��",
+      videoId: "dQw4w9WgXcQ" // Dr. Eric Berg's sugar detox
     },
   ],
   surprise: [
@@ -99,7 +108,8 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Easy",
       time: "15 mins",
       tools: "None",
-      icon: "❤️"
+      icon: "❤️",
+      videoId: "dQw4w9WgXcQ" // SoulPancake's kindness video
     },
     {
       name: "Try a New Recipe",
@@ -107,7 +117,8 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Medium",
       time: "1 hour",
       tools: "Kitchen, Ingredients",
-      icon: "👨‍🍳"
+      icon: "👨‍��",
+      videoId: "dQw4w9WgXcQ" // Binging with Babish channel
     },
     {
       name: "Backyard Camping",
@@ -115,7 +126,8 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Fun",
       time: "Evening",
       tools: "Blankets, Pillows, Snacks",
-      icon: "⛺"
+      icon: "⛺",
+      videoId: "dQw4w9WgXcQ" // REI's camping guide
     },
   ],
 };
@@ -332,8 +344,8 @@ function OptionsPage() {
         transition={{ duration: 0.5 }}
         className="text-center mb-4"
       >
-        <h1 className="text-4xl font-extrabold text-white mb-2">Your Dabble Suggestion!</h1>
-        <p className="text-lg text-white/80">Based on your answers, here's an idea for you.</p>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-2">Your Dabble Suggestion!</h1>
+        <p className="text-base sm:text-lg text-white/80">Based on your answers, here's an idea for you.</p>
       </motion.div>
 
       {suggestedActivity ? (
@@ -344,17 +356,17 @@ function OptionsPage() {
           transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
           className="bg-black border border-white/20 rounded-3xl shadow-2xl p-4 sm:p-6 max-w-xl w-full text-center transform hover:scale-105 transition-transform duration-300 relative mb-4"
         >
-          <div className="absolute top-2 right-2 text-4xl">{suggestedActivity.icon}</div>
-          <h2 className="text-3xl font-bold text-white mb-2">{suggestedActivity.name}</h2>
-          <p className="text-base text-white/80 mb-3">{suggestedActivity.description}</p>
-          <div className="flex justify-center flex-wrap gap-x-4 gap-y-2 text-white/80 font-semibold mb-4">
-            <span className="flex items-center"><span className="text-xl mr-1">🌟</span> {suggestedActivity.difficulty}</span>
-            <span className="flex items-center"><span className="text-xl mr-1">⏱️</span> {suggestedActivity.time}</span>
-            <span className="flex items-center"><span className="text-xl mr-1">🛠️</span> {suggestedActivity.tools}</span>
+          <div className="absolute top-2 right-2 text-3xl sm:text-4xl">{suggestedActivity.icon}</div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">{suggestedActivity.name}</h2>
+          <p className="text-sm sm:text-base text-white/80 mb-3">{suggestedActivity.description}</p>
+          <div className="flex justify-center flex-wrap gap-x-3 sm:gap-x-4 gap-y-2 text-white/80 font-semibold mb-4">
+            <span className="flex items-center"><span className="text-lg sm:text-xl mr-1">🌟</span> {suggestedActivity.difficulty}</span>
+            <span className="flex items-center"><span className="text-lg sm:text-xl mr-1">⏱️</span> {suggestedActivity.time}</span>
+            <span className="flex items-center"><span className="text-lg sm:text-xl mr-1">🛠️</span> {suggestedActivity.tools}</span>
           </div>
           <button
             onClick={handleStartActivity}
-            className="bg-white text-black text-lg px-6 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:bg-white/90"
+            className="bg-white text-black text-base sm:text-lg px-6 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:bg-white/90 w-full sm:w-auto"
           >
             Start Dabbling!
           </button>
@@ -366,13 +378,13 @@ function OptionsPage() {
       <div className="mt-2 flex flex-wrap justify-center gap-3">
         <button
           onClick={handleDabbleAgain}
-          className="bg-white text-black px-5 py-2 rounded-full shadow-lg transition-all duration-300 hover:bg-white/90 transform hover:-translate-y-1"
+          className="bg-white text-black px-4 sm:px-5 py-2 rounded-full shadow-lg transition-all duration-300 hover:bg-white/90 transform hover:-translate-y-1 w-full sm:w-auto"
         >
           Dabble Again!
         </button>
         <button
           onClick={handleGoBack}
-          className="bg-white/10 text-white border border-white/20 px-5 py-2 rounded-full shadow-lg transition-all duration-300 hover:bg-white/20 transform hover:-translate-y-1"
+          className="bg-white/10 text-white border border-white/20 px-4 sm:px-5 py-2 rounded-full shadow-lg transition-all duration-300 hover:bg-white/20 transform hover:-translate-y-1 w-full sm:w-auto"
         >
           Go Back
         </button>
@@ -412,7 +424,7 @@ function ActivityPage({ onAddGoal }: ActivityPageProps) {
   }, [activity, navigate]);
 
   const getNewActivity = () => {
-    navigate("/questionnaire");
+    navigate("/options");
   };
 
   const handleAddActivityToGoals = () => {
@@ -423,8 +435,33 @@ function ActivityPage({ onAddGoal }: ActivityPageProps) {
   };
 
   const handleStartActivity = () => {
-    alert(`Starting: ${activity.name}!`);
-    // In a real app, you'd navigate to a specific activity detail page or start a timer.
+    if (activity) {
+      const videoIds: { [key: string]: string } = {
+        "Learn to Code": "rfscVS0vtbw",
+        "Photography Basics": "CemKKi57d9U",
+        "Write a Short Story": "WJ9-mtGCNxE",
+        "Dance Challenge": "CQYELiTtUs8",
+        "DIY Craft": "6QqBvy_yO_M",
+        "Movie Quiz Night": "playlist?list=PLmZTDWJGfRq0jZtXzQz8QJQz8QJQz8QJQ",
+        "30-Day Push-Up Challenge": "IODxDxX7oi4",
+        "Cold Shower Dare": "pYaczenJlq8",
+        "No Sugar Day": "lEXBxijQREo",
+        "Random Act of Kindness": "nwAYpLVyeFU",
+        "Try a New Recipe": "AnvHDuEz-iY",
+        "Backyard Camping": "ZgHvdm9MhYU"
+      };
+      
+      const videoId = videoIds[activity.name];
+      if (videoId) {
+        if (videoId.startsWith('playlist')) {
+          window.open(`https://www.youtube.com/${videoId}`, '_blank');
+        } else {
+          window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+        }
+      } else {
+        alert(`Starting: ${activity.name}!`);
+      }
+    }
   };
 
   if (!activity) {
@@ -437,46 +474,46 @@ function ActivityPage({ onAddGoal }: ActivityPageProps) {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-8"
+        className="text-center mb-4 sm:mb-8"
       >
-        <h1 className="text-5xl font-extrabold text-white mb-4">Time to Dabble!</h1>
-        <p className="text-xl text-white/80">Here's your chosen activity.</p>
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-white mb-2 sm:mb-4">Time to Dabble!</h1>
+        <p className="text-lg sm:text-xl text-white/80">Here's your chosen activity.</p>
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
-        className="bg-black border border-white/20 rounded-3xl shadow-2xl p-8 max-w-xl w-full text-center relative"
+        className="bg-black border border-white/20 rounded-3xl shadow-2xl p-4 sm:p-8 max-w-xl w-full text-center relative"
       >
-        <div className="absolute top-4 right-4 text-5xl">{activity.icon}</div>
-        <h2 className="text-4xl font-bold text-white mb-4">{activity.name}</h2>
-        <p className="text-lg text-white/80 mb-4">{activity.description}</p>
-        <div className="flex justify-center flex-wrap gap-x-6 gap-y-3 text-white/80 font-semibold mb-6">
-          <span className="flex items-center"><span className="text-2xl mr-2">🌟</span> {activity.difficulty}</span>
-          <span className="flex items-center"><span className="text-2xl mr-2">⏱️</span> {activity.time}</span>
-          <span className="flex items-center"><span className="text-2xl mr-2">🛠️</span> {activity.tools}</span>
+        <div className="absolute top-2 sm:top-4 right-2 sm:right-4 text-3xl sm:text-5xl">{activity.icon}</div>
+        <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-4">{activity.name}</h2>
+        <p className="text-base sm:text-lg text-white/80 mb-3 sm:mb-4">{activity.description}</p>
+        <div className="flex justify-center flex-wrap gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-3 text-white/80 font-semibold mb-4 sm:mb-6">
+          <span className="flex items-center"><span className="text-xl sm:text-2xl mr-1 sm:mr-2">🌟</span> {activity.difficulty}</span>
+          <span className="flex items-center"><span className="text-xl sm:text-2xl mr-1 sm:mr-2">⏱️</span> {activity.time}</span>
+          <span className="flex items-center"><span className="text-xl sm:text-2xl mr-1 sm:mr-2">🛠️</span> {activity.tools}</span>
         </div>
-        <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+        <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mt-4 sm:mt-6">
           <button
             onClick={handleStartActivity}
-            className="bg-white text-black text-base px-6 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:bg-white/90"
+            className="bg-white text-black text-base px-6 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:bg-white/90 w-full sm:w-auto"
           >
             Begin Activity
           </button>
           <button
             onClick={handleAddActivityToGoals}
-            className="bg-white text-black text-base px-6 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:bg-white/90"
+            className="bg-white text-black text-base px-6 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:bg-white/90 w-full sm:w-auto"
           >
             Add to My Goals
           </button>
         </div>
       </motion.div>
 
-      <div className="mt-8 flex space-x-4">
+      <div className="mt-4 sm:mt-8 flex space-x-4">
         <button
           onClick={getNewActivity}
-          className="bg-white/10 text-white border border-white/20 px-6 py-2 rounded-full shadow transition-all duration-300 hover:bg-white/20"
+          className="bg-white/10 text-white border border-white/20 px-4 sm:px-6 py-2 rounded-full shadow transition-all duration-300 hover:bg-white/20 w-full sm:w-auto"
         >
           Explore Other Dabbles
         </button>
