@@ -12,11 +12,11 @@ interface Goal {
 interface GoalsProps {
   goals: Goal[];
   toggleGoal: (id: number) => void;
-  deleteGoal: (id: number) => void;
+  onDeleteGoal: (id: number) => void;
   onAddGoal: (text: string) => void;
 }
 
-export default function Goals({ goals, toggleGoal, deleteGoal, onAddGoal }: GoalsProps) {
+export default function Goals({ goals, toggleGoal, onDeleteGoal, onAddGoal }: GoalsProps) {
   const [newGoal, setNewGoal] = useState('');
   const navigate = useNavigate();
 
@@ -119,7 +119,7 @@ export default function Goals({ goals, toggleGoal, deleteGoal, onAddGoal }: Goal
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  onClick={() => deleteGoal(goal.id)}
+                  onClick={() => onDeleteGoal(goal.id)}
                   className="opacity-0 group-hover:opacity-100 text-white/50 hover:text-white transition-all"
                 >
                   <svg
