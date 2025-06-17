@@ -542,7 +542,6 @@ function AppContent() {
     const savedGoals = localStorage.getItem('dabbly_goals');
     return savedGoals ? JSON.parse(savedGoals) : [];
   });
-  const initialNavigationDone = useRef(false);
 
   useEffect(() => {
     localStorage.setItem('dabbly_goals', JSON.stringify(goals));
