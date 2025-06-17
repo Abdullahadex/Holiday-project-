@@ -466,18 +466,18 @@ function ActivityPage() {
             >
               {currentActivity.icon}
             </motion.div>
-            <div className="space-y-4 w-full">
-              <div className="bg-white/10 rounded-xl p-4">
-                <span className="text-white/70 text-sm block mb-1">Difficulty</span>
-                <span className="text-white font-medium text-lg">{currentActivity.difficulty}</span>
+            <div className="space-y-4 w-full text-center">
+              <div className="text-white">
+                <span className="text-white/70 text-base block">Difficulty</span>
+                <span className="font-medium text-lg">{currentActivity.difficulty}</span>
               </div>
-              <div className="bg-white/10 rounded-xl p-4">
-                <span className="text-white/70 text-sm block mb-1">Time</span>
-                <span className="text-white font-medium text-lg">{currentActivity.time}</span>
+              <div className="text-white">
+                <span className="text-white/70 text-base block">Time</span>
+                <span className="font-medium text-lg">{currentActivity.time}</span>
               </div>
-              <div className="bg-white/10 rounded-xl p-4">
-                <span className="text-white/70 text-sm block mb-1">Tools</span>
-                <span className="text-white font-medium text-lg">{currentActivity.tools}</span>
+              <div className="text-white">
+                <span className="text-white/70 text-base block">Tools</span>
+                <span className="font-medium text-lg">{currentActivity.tools}</span>
               </div>
             </div>
           </div>
@@ -501,6 +501,16 @@ function ActivityPage() {
               >
                 <span className="text-2xl">🎲</span>
                 <span>Discover Another Activity</span>
+              </motion.button>
+              
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => navigate("/options")}
+                className="w-full bg-white/10 hover:bg-white/20 text-white text-xl px-8 py-4 rounded-xl shadow-xl transition-all duration-300 font-bold hover:shadow-2xl flex items-center justify-center gap-3"
+              >
+                <span className="text-2xl">📋</span>
+                <span>Back to Categories</span>
               </motion.button>
               
               <motion.button
