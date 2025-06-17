@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import "./index.css";
-import { HashRouter as Router, Routes, Route, useNavigate, useLocation, useParams } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import Goals from "./components/Goals";
 import AuthPage from "./components/AuthPage";
@@ -601,7 +601,7 @@ function AppContent() {
             />
             <Route
               path="/my-goals"
-              element={<Goals goals={goals} toggleGoal={toggleGoal} onDeleteGoal={deleteGoal} onAddGoal={addGoal} />}
+              element={<Goals goals={goals} toggleGoal={toggleGoal} deleteGoal={deleteGoal} onAddGoal={addGoal} />}
             />
             <Route path="*" element={<LandingPage />} />
           </Routes>

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 
 interface AuthPageProps {
   onLoginSuccess: () => void;
@@ -10,7 +9,6 @@ export default function AuthPage({ onLoginSuccess }: AuthPageProps) {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
   const handleAuth = () => {
     // In a real app, you'd send these credentials to a backend for authentication/registration.
