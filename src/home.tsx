@@ -38,7 +38,7 @@ export default function LandingPage() {
           onClick={handleLetsDabble}
           className="bg-white text-black font-black py-3 px-8 rounded-full shadow-lg text-lg hover:bg-white/90 transition duration-300 ease-in-out transform hover:-translate-y-1 relative overflow-hidden group"
         >
-          <span className="font-black tracking-wide">Let's Dabble!</span> <span className="ml-2">🎯</span>
+          <span className="font-black tracking-wider uppercase text-xl drop-shadow-sm">LET'S DABBLE!</span> <span className="ml-2">🎯</span>
           {/* Glowing effect */}
           <span className="absolute inset-0 rounded-full bg-white opacity-0 animate-pulse-light group-hover:opacity-75 transition-opacity duration-300"></span>
         </motion.button>

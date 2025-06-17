@@ -330,10 +330,10 @@ function OptionsPage() {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-8"
+        className="text-center mb-4"
       >
-        <h1 className="text-5xl font-extrabold text-white mb-4">Your Dabble Suggestion!</h1>
-        <p className="text-xl text-white/80">Based on your answers, here's an idea for you.</p>
+        <h1 className="text-4xl font-extrabold text-white mb-2">Your Dabble Suggestion!</h1>
+        <p className="text-lg text-white/80">Based on your answers, here's an idea for you.</p>
       </motion.div>
 
       {suggestedActivity ? (
@@ -342,37 +342,37 @@ function OptionsPage() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
-          className="bg-black border border-white/20 rounded-3xl shadow-2xl p-8 max-w-xl w-full text-center transform hover:scale-105 transition-transform duration-300 relative"
+          className="bg-black border border-white/20 rounded-3xl shadow-2xl p-4 sm:p-6 max-w-xl w-full text-center transform hover:scale-105 transition-transform duration-300 relative mb-4"
         >
-          <div className="absolute top-4 right-4 text-5xl">{suggestedActivity.icon}</div>
-          <h2 className="text-4xl font-bold text-white mb-4">{suggestedActivity.name}</h2>
-          <p className="text-lg text-white/80 mb-4">{suggestedActivity.description}</p>
-          <div className="flex justify-center flex-wrap gap-x-6 gap-y-3 text-white/80 font-semibold mb-6">
-            <span className="flex items-center"><span className="text-2xl mr-2">🌟</span> {suggestedActivity.difficulty}</span>
-            <span className="flex items-center"><span className="text-2xl mr-2">⏱️</span> {suggestedActivity.time}</span>
-            <span className="flex items-center"><span className="text-2xl mr-2">🛠️</span> {suggestedActivity.tools}</span>
+          <div className="absolute top-2 right-2 text-4xl">{suggestedActivity.icon}</div>
+          <h2 className="text-3xl font-bold text-white mb-2">{suggestedActivity.name}</h2>
+          <p className="text-base text-white/80 mb-3">{suggestedActivity.description}</p>
+          <div className="flex justify-center flex-wrap gap-x-4 gap-y-2 text-white/80 font-semibold mb-4">
+            <span className="flex items-center"><span className="text-xl mr-1">🌟</span> {suggestedActivity.difficulty}</span>
+            <span className="flex items-center"><span className="text-xl mr-1">⏱️</span> {suggestedActivity.time}</span>
+            <span className="flex items-center"><span className="text-xl mr-1">🛠️</span> {suggestedActivity.tools}</span>
           </div>
           <button
             onClick={handleStartActivity}
-            className="bg-white text-black text-xl px-8 py-3 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:bg-white/90"
+            className="bg-white text-black text-lg px-6 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:bg-white/90"
           >
             Start Dabbling!
           </button>
         </motion.div>
       ) : (
-        <p className="text-xl text-white/80">Generating your suggestion...</p>
+        <p className="text-lg text-white/80">Generating your suggestion...</p>
       )}
 
-      <div className="mt-8 flex space-x-4">
+      <div className="mt-2 flex flex-wrap justify-center gap-3">
         <button
           onClick={handleDabbleAgain}
-          className="bg-white text-black px-6 py-2 rounded-full shadow transition-all duration-300 hover:bg-white/90"
+          className="bg-white text-black px-5 py-2 rounded-full shadow-lg transition-all duration-300 hover:bg-white/90 transform hover:-translate-y-1"
         >
           Dabble Again!
         </button>
         <button
           onClick={handleGoBack}
-          className="bg-white/10 text-white border border-white/20 px-6 py-2 rounded-full shadow transition-all duration-300 hover:bg-white/20"
+          className="bg-white/10 text-white border border-white/20 px-5 py-2 rounded-full shadow-lg transition-all duration-300 hover:bg-white/20 transform hover:-translate-y-1"
         >
           Go Back
         </button>
@@ -381,14 +381,14 @@ function OptionsPage() {
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="absolute top-10 left-10 text-8xl opacity-10"
+        className="fixed top-10 left-10 text-6xl opacity-10 pointer-events-none"
       >
         🌀
       </motion.div>
       <motion.div
         animate={{ x: [0, 100, 0], y: [0, 50, 0] }}
         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-10 right-10 text-9xl opacity-10"
+        className="fixed bottom-10 right-10 text-7xl opacity-10 pointer-events-none"
       >
         ✨
       </motion.div>
@@ -563,7 +563,7 @@ function AppContent() {
   };
 
   return (
-    <div className="font-sans antialiased bg-black text-white">
+    <div className="font-sans antialiased bg-black text-white h-screen overflow-hidden">
       <nav className="p-4 border-b border-white/20 flex justify-between items-center fixed w-full top-0 z-10 bg-black/80 backdrop-blur-lg">
         <div>
           {isAuthenticated && (
@@ -585,7 +585,7 @@ function AppContent() {
         </div>
       </nav>
 
-      <main className="pt-16">
+      <main className="h-full pt-16 overflow-y-auto">
         <AnimatePresence mode="wait">
           <Routes>
             <Route path="/" element={<LandingPage />} />
