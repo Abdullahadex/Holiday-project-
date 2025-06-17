@@ -162,26 +162,24 @@ function QuestionnairePage() {
   const progress = ((currentQuestion + 1) / questions.length) * 100;
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-pink-50 overflow-hidden">
+    <div className="h-screen w-screen flex items-center justify-center bg-black overflow-hidden">
       <div className="flex flex-col items-center w-full max-w-2xl gap-y-8 text-center px-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-white/10 backdrop-blur-lg p-12 rounded-3xl shadow-2xl w-full relative"
+          className="bg-black border border-white/20 p-12 rounded-3xl shadow-2xl w-full relative"
         >
-          {/* Progress Bar */}
           <div className="w-full h-2 bg-white/20 rounded-full mb-8 overflow-hidden">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.5 }}
-              className="h-full bg-violet-600 rounded-full"
+              className="h-full bg-white rounded-full"
             />
           </div>
 
-          {/* Question Counter */}
-          <div className="text-violet-600 font-bold mb-4">
+          <div className="text-white font-bold mb-4">
             Question {currentQuestion + 1} of {questions.length}
           </div>
 
@@ -189,7 +187,7 @@ function QuestionnairePage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-3xl font-black text-violet-800 mb-8"
+            className="text-3xl font-black text-white mb-8"
           >
             {questions[currentQuestion].question}
           </motion.h2>
@@ -213,11 +211,11 @@ function QuestionnairePage() {
                   }}
                   whileHover={{ 
                     scale: 1.05,
-                    boxShadow: "0 8px 32px 0 rgba(99,102,241,0.25)"
+                    boxShadow: "0 8px 32px 0 rgba(255,255,255,0.25)"
                   }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleAnswer(option, index)}
-                  className="relative bg-violet-600 hover:bg-violet-700 text-white text-base px-6 py-3 rounded-full shadow-xl transition-all duration-300 font-bold hover:shadow-2xl overflow-hidden group w-full mb-4"
+                  className="relative bg-white text-black text-base px-6 py-3 rounded-full shadow-xl transition-all duration-300 font-bold hover:shadow-2xl overflow-hidden group w-full mb-4"
                 >
                   <motion.div
                     initial={{ x: -100, opacity: 0 }}
@@ -239,7 +237,6 @@ function QuestionnairePage() {
             </div>
           </div>
 
-          {/* Fun decorative elements */}
           <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
             <motion.div
               animate={{
@@ -328,15 +325,15 @@ function OptionsPage() {
   };
 
   return (
-    <div className="h-screen w-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-50 to-indigo-50 text-gray-800 p-4">
+    <div className="h-screen w-screen flex flex-col items-center justify-center bg-black text-white p-4">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="text-center mb-8"
       >
-        <h1 className="text-5xl font-extrabold text-purple-700 mb-4">Your Dabble Suggestion!</h1>
-        <p className="text-xl text-indigo-600">Based on your answers, here's an idea for you.</p>
+        <h1 className="text-5xl font-extrabold text-white mb-4">Your Dabble Suggestion!</h1>
+        <p className="text-xl text-white/80">Based on your answers, here's an idea for you.</p>
       </motion.div>
 
       {suggestedActivity ? (
@@ -345,37 +342,37 @@ function OptionsPage() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
-          className="bg-white rounded-3xl shadow-2xl p-8 max-w-xl w-full text-center transform hover:scale-105 transition-transform duration-300 relative"
+          className="bg-black border border-white/20 rounded-3xl shadow-2xl p-8 max-w-xl w-full text-center transform hover:scale-105 transition-transform duration-300 relative"
         >
           <div className="absolute top-4 right-4 text-5xl">{suggestedActivity.icon}</div>
-          <h2 className="text-4xl font-bold text-purple-800 mb-4">{suggestedActivity.name}</h2>
-          <p className="text-lg text-gray-700 mb-4">{suggestedActivity.description}</p>
-          <div className="flex justify-center flex-wrap gap-x-6 gap-y-3 text-purple-600 font-semibold mb-6">
+          <h2 className="text-4xl font-bold text-white mb-4">{suggestedActivity.name}</h2>
+          <p className="text-lg text-white/80 mb-4">{suggestedActivity.description}</p>
+          <div className="flex justify-center flex-wrap gap-x-6 gap-y-3 text-white/80 font-semibold mb-6">
             <span className="flex items-center"><span className="text-2xl mr-2">🌟</span> {suggestedActivity.difficulty}</span>
             <span className="flex items-center"><span className="text-2xl mr-2">⏱️</span> {suggestedActivity.time}</span>
             <span className="flex items-center"><span className="text-2xl mr-2">🛠️</span> {suggestedActivity.tools}</span>
           </div>
           <button
             onClick={handleStartActivity}
-            className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xl px-8 py-3 rounded-full shadow-lg hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 transform hover:-translate-y-1"
+            className="bg-white text-black text-xl px-8 py-3 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:bg-white/90"
           >
             Start Dabbling!
           </button>
         </motion.div>
       ) : (
-        <p className="text-xl text-gray-600">Generating your suggestion...</p>
+        <p className="text-xl text-white/80">Generating your suggestion...</p>
       )}
 
       <div className="mt-8 flex space-x-4">
         <button
           onClick={handleDabbleAgain}
-          className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2 rounded-full shadow transition-all duration-300"
+          className="bg-white text-black px-6 py-2 rounded-full shadow transition-all duration-300 hover:bg-white/90"
         >
           Dabble Again!
         </button>
         <button
           onClick={handleGoBack}
-          className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-full shadow transition-all duration-300"
+          className="bg-white/10 text-white border border-white/20 px-6 py-2 rounded-full shadow transition-all duration-300 hover:bg-white/20"
         >
           Go Back
         </button>
@@ -435,27 +432,27 @@ function ActivityPage({ onAddGoal }: ActivityPageProps) {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-50 to-teal-50 text-gray-800 p-4">
+    <div className="h-screen w-screen flex flex-col items-center justify-center bg-black text-white p-4">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="text-center mb-8"
       >
-        <h1 className="text-5xl font-extrabold text-green-700 mb-4">Time to Dabble!</h1>
-        <p className="text-xl text-teal-600">Here's your chosen activity.</p>
+        <h1 className="text-5xl font-extrabold text-white mb-4">Time to Dabble!</h1>
+        <p className="text-xl text-white/80">Here's your chosen activity.</p>
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
-        className="bg-white rounded-3xl shadow-2xl p-8 max-w-xl w-full text-center relative"
+        className="bg-black border border-white/20 rounded-3xl shadow-2xl p-8 max-w-xl w-full text-center relative"
       >
         <div className="absolute top-4 right-4 text-5xl">{activity.icon}</div>
-        <h2 className="text-4xl font-bold text-green-800 mb-4">{activity.name}</h2>
-        <p className="text-lg text-gray-700 mb-4">{activity.description}</p>
-        <div className="flex justify-center flex-wrap gap-x-6 gap-y-3 text-green-600 font-semibold mb-6">
+        <h2 className="text-4xl font-bold text-white mb-4">{activity.name}</h2>
+        <p className="text-lg text-white/80 mb-4">{activity.description}</p>
+        <div className="flex justify-center flex-wrap gap-x-6 gap-y-3 text-white/80 font-semibold mb-6">
           <span className="flex items-center"><span className="text-2xl mr-2">🌟</span> {activity.difficulty}</span>
           <span className="flex items-center"><span className="text-2xl mr-2">⏱️</span> {activity.time}</span>
           <span className="flex items-center"><span className="text-2xl mr-2">🛠️</span> {activity.tools}</span>
@@ -463,13 +460,13 @@ function ActivityPage({ onAddGoal }: ActivityPageProps) {
         <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
           <button
             onClick={handleStartActivity}
-            className="bg-gradient-to-r from-green-600 to-teal-600 text-white text-base px-6 py-2 rounded-full shadow-lg hover:from-green-700 hover:to-teal-700 transition-all duration-300 transform hover:-translate-y-1"
+            className="bg-white text-black text-base px-6 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:bg-white/90"
           >
             Begin Activity
           </button>
           <button
             onClick={handleAddActivityToGoals}
-            className="bg-purple-600 hover:bg-purple-700 text-white text-base px-6 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+            className="bg-white text-black text-base px-6 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:bg-white/90"
           >
             Add to My Goals
           </button>
@@ -479,7 +476,7 @@ function ActivityPage({ onAddGoal }: ActivityPageProps) {
       <div className="mt-8 flex space-x-4">
         <button
           onClick={getNewActivity}
-          className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-full shadow transition-all duration-300"
+          className="bg-white/10 text-white border border-white/20 px-6 py-2 rounded-full shadow transition-all duration-300 hover:bg-white/20"
         >
           Explore Other Dabbles
         </button>
@@ -566,20 +563,20 @@ function AppContent() {
   };
 
   return (
-    <div className="font-sans antialiased text-gray-800">
-      <nav className="p-4 bg-white shadow-md flex justify-between items-center fixed w-full top-0 z-10">
+    <div className="font-sans antialiased bg-black text-white">
+      <nav className="p-4 border-b border-white/20 flex justify-between items-center fixed w-full top-0 z-10 bg-black/80 backdrop-blur-lg">
         <div>
           {isAuthenticated && (
             <>
               <button
                 onClick={() => navigate('/my-goals')}
-                className="mr-4 text-violet-600 hover:text-violet-800 font-medium"
+                className="mr-4 text-white hover:text-white/80 font-medium"
               >
                 My Goals
               </button>
               <button
                 onClick={handleLogout}
-                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full text-sm font-medium"
+                className="bg-white text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-white/90"
               >
                 Logout
               </button>
@@ -601,7 +598,7 @@ function AppContent() {
             />
             <Route
               path="/my-goals"
-              element={<Goals goals={goals} toggleGoal={toggleGoal} deleteGoal={deleteGoal} onAddGoal={addGoal} />}
+              element={<Goals goals={goals} toggleGoal={toggleGoal} onDeleteGoal={deleteGoal} onAddGoal={addGoal} />}
             />
             <Route path="*" element={<LandingPage />} />
           </Routes>

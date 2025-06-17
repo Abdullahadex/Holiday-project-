@@ -9,7 +9,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center bg-gray-900 text-white overflow-hidden">
+    <div className="h-screen w-screen flex items-center justify-center bg-black text-white overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -28,7 +28,7 @@ export default function LandingPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-xl mb-8 opacity-90 text-gray-300"
+          className="text-xl mb-8 opacity-90 text-white/80"
         >
           Feeling bored? Let's help you find something awesome to try out!
         </motion.p>
@@ -36,11 +36,11 @@ export default function LandingPage() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleLetsDabble}
-          className="bg-purple-600 text-white font-bold py-3 px-8 rounded-full shadow-lg text-lg hover:bg-purple-700 transition duration-300 ease-in-out transform hover:-translate-y-1 relative overflow-hidden group"
+          className="bg-white text-black font-black py-3 px-8 rounded-full shadow-lg text-lg hover:bg-white/90 transition duration-300 ease-in-out transform hover:-translate-y-1 relative overflow-hidden group"
         >
-          Let's Dabble! <span className="ml-2">🎯</span>
+          <span className="font-black tracking-wide">Let's Dabble!</span> <span className="ml-2">🎯</span>
           {/* Glowing effect */}
-          <span className="absolute inset-0 rounded-full bg-purple-600 opacity-0 animate-pulse-light group-hover:opacity-75 transition-opacity duration-300"></span>
+          <span className="absolute inset-0 rounded-full bg-white opacity-0 animate-pulse-light group-hover:opacity-75 transition-opacity duration-300"></span>
         </motion.button>
       </motion.div>
 

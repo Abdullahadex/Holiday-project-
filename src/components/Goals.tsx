@@ -28,18 +28,18 @@ export default function Goals({ goals, toggleGoal, deleteGoal, onAddGoal }: Goal
   };
 
   return (
-    <div className="h-screen w-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+    <div className="h-screen w-screen bg-black">
       <div className="h-full w-full max-w-3xl mx-auto px-4 py-6 flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold text-white">
             My Goals
           </h1>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate('/')}
-            className="text-gray-600 hover:text-gray-800 font-medium flex items-center gap-2"
+            className="text-white hover:text-white/80 font-medium flex items-center gap-2"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -48,28 +48,28 @@ export default function Goals({ goals, toggleGoal, deleteGoal, onAddGoal }: Goal
           </motion.button>
         </div>
 
-        {/* Add new goal section - redesigned */}
-        <div className="flex items-center gap-4 mb-6">
+        {/* Add new goal section */}
+        <div className="flex gap-4 mb-8">
           <input
             type="text"
             value={newGoal}
             onChange={(e) => setNewGoal(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleAddGoal()}
             placeholder="What's your next goal?"
-            className="flex-1 max-w-sm bg-white/80 backdrop-blur-sm text-gray-800 placeholder-gray-400 px-4 py-3 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all"
+            className="flex-1 max-w-sm bg-white/10 backdrop-blur-sm text-white placeholder-white/50 px-4 py-3 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/20 transition-all border border-white/20"
           />
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleAddGoal}
-            className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-6 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all whitespace-nowrap"
+            className="bg-white text-black px-6 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all whitespace-nowrap hover:bg-white/90"
           >
             Add Goal
           </motion.button>
         </div>
 
         {/* Goals list */}
-        <div className="flex-1 overflow-y-auto pr-2 space-y-3 custom-scrollbar">
+        <div className="flex-1 overflow-y-auto custom-scrollbar space-y-4">
           <AnimatePresence>
             {goals.map((goal) => (
               <motion.div
@@ -77,7 +77,7 @@ export default function Goals({ goals, toggleGoal, deleteGoal, onAddGoal }: Goal
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 flex items-center gap-4 group hover:bg-white/90 transition-all"
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 flex items-center gap-4 group hover:bg-white/20 transition-all border border-white/20"
               >
                 <motion.button
                   whileHover={{ scale: 1.1 }}
@@ -85,15 +85,15 @@ export default function Goals({ goals, toggleGoal, deleteGoal, onAddGoal }: Goal
                   onClick={() => toggleGoal(goal.id)}
                   className={`w-7 h-7 rounded-full border-2 flex items-center justify-center transition-colors ${
                     goal.completed
-                      ? 'bg-gradient-to-r from-indigo-500 to-purple-500 border-transparent'
-                      : 'border-gray-300'
+                      ? 'bg-white border-transparent'
+                      : 'border-white/50'
                   }`}
                 >
                   {goal.completed && (
                     <motion.svg
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      className="w-4 h-4 text-white"
+                      className="w-4 h-4 text-black"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -110,7 +110,7 @@ export default function Goals({ goals, toggleGoal, deleteGoal, onAddGoal }: Goal
                 
                 <span
                   className={`flex-1 text-lg ${
-                    goal.completed ? 'line-through text-gray-400' : 'text-gray-700'
+                    goal.completed ? 'line-through text-white/40' : 'text-white'
                   }`}
                 >
                   {goal.text}
@@ -120,7 +120,7 @@ export default function Goals({ goals, toggleGoal, deleteGoal, onAddGoal }: Goal
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => deleteGoal(goal.id)}
-                  className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 transition-all"
+                  className="opacity-0 group-hover:opacity-100 text-white/50 hover:text-white transition-all"
                 >
                   <svg
                     className="w-5 h-5"
@@ -145,10 +145,10 @@ export default function Goals({ goals, toggleGoal, deleteGoal, onAddGoal }: Goal
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-center py-12 bg-white/80 backdrop-blur-sm rounded-2xl"
+              className="text-center py-12 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20"
             >
               <span className="text-6xl mb-4 block">✨</span>
-              <p className="text-gray-600 text-lg">
+              <p className="text-white/80 text-lg">
                 No goals yet! Add your first goal above.
               </p>
             </motion.div>
