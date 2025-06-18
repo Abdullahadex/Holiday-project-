@@ -375,7 +375,14 @@ function OptionsPage() {
         ? `/api/activity?type=${type}`
         : `/api/activity`;
       const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
       const data = await response.json();
+      if (!data.activity) {
+        console.error('API response missing activity:', data);
+        throw new Error('No activity in API response');
+      }
       const apiActivity = {
         name: data.activity,
         description: data.type ? data.type.charAt(0).toUpperCase() + data.type.slice(1) : 'Random',
@@ -388,6 +395,7 @@ function OptionsPage() {
       setLastActivity(suggestedActivity);
       setSuggestedActivity(apiActivity);
     } catch (e) {
+      console.error('Failed to fetch a dabble activity:', e);
       // Fallback to local logic if API fails
       const newActivity = getSuggestedCategory();
       setLastActivity(suggestedActivity);
@@ -399,7 +407,14 @@ function OptionsPage() {
     setLoadingSurprise(true);
     try {
       const response = await fetch('/api/activity');
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
       const data = await response.json();
+      if (!data.activity) {
+        console.error('API response missing activity:', data);
+        throw new Error('No activity in API response');
+      }
       const surpriseActivity = {
         name: data.activity,
         description: data.type ? data.type.charAt(0).toUpperCase() + data.type.slice(1) : 'Random',
@@ -412,6 +427,7 @@ function OptionsPage() {
       setLastActivity(suggestedActivity);
       setSuggestedActivity(surpriseActivity);
     } catch (e) {
+      console.error('Failed to fetch a surprise activity:', e);
       alert('Failed to fetch a surprise activity. Try again!');
     }
     setLoadingSurprise(false);
