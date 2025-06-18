@@ -290,44 +290,131 @@ function OptionsPage() {
   const navigate = useNavigate();
   const { answers } = location.state || { answers: [] };
   const [suggestedActivity, setSuggestedActivity] = useState<any>(null);
+  const [lastActivity, setLastActivity] = useState<any>(null);
+  const [loadingSurprise, setLoadingSurprise] = useState(false);
 
   useEffect(() => {
     if (answers.length > 0) {
       setSuggestedActivity(getSuggestedCategory());
     }
+    // eslint-disable-next-line
   }, [answers]);
 
-  const getSuggestedCategory = () => {
-    const energyLevel = answers[1]; // "Low", "Medium", "High"
-    const socialPreference = answers[2]; // "Solo", "Group", "Either"
+  // Utility to shuffle an array
+  function shuffleArray(array: any[]) {
+    return array
+      .map((a) => [Math.random(), a])
+      .sort((a, b) => a[0] - b[0])
+      .map((a) => a[1]);
+  }
 
+  function getSuggestedCategory() {
+    const energyLevel = answers[1];
+    const socialPreference = answers[2];
+
+    let category = "";
     if (energyLevel === "Low - Want something relaxing") {
-      return getRandomActivity("fun");
+      category = "fun";
     } else if (energyLevel === "High - Bring it on!") {
-      return getRandomActivity("challenge");
+      category = "challenge";
     } else {
-      // Medium energy, consider social preference
       if (socialPreference === "Solo activity") {
-        return getRandomActivity("skill");
+        category = "skill";
       } else if (socialPreference === "Group activity") {
-        return getRandomActivity("fun");
+        category = "fun";
       } else {
-        return getRandomActivity(Object.keys(activities)[Math.floor(Math.random() * Object.keys(activities).length)]);
+        const keys = Object.keys(activities);
+        category = keys[Math.floor(Math.random() * keys.length)];
       }
     }
-  };
+    return getRandomActivity(category);
+  }
 
-  const getRandomActivity = (category: string) => {
-    const categoryActivities = activities[category];
-    return categoryActivities[Math.floor(Math.random() * categoryActivities.length)];
-  };
+  function getRandomActivity(category: string) {
+    let categoryActivities = activities[category];
+    let filtered = categoryActivities.filter(
+      (a) => !lastActivity || a.name !== lastActivity.name
+    );
+    if (filtered.length === 0) {
+      // If only one activity, allow picking from all except last across all categories
+      const allActivities = Object.values(activities).flat();
+      filtered = allActivities.filter(
+        (a) => !lastActivity || a.name !== lastActivity.name
+      );
+    }
+    const shuffled = shuffleArray(filtered);
+    return shuffled[0];
+  }
 
   const handleGoBack = () => {
     navigate("/questionnaire");
   };
 
-  const handleDabbleAgain = () => {
-    setSuggestedActivity(getSuggestedCategory());
+  const handleDabbleAgain = async () => {
+    // Map questionnaire answers to Bored API types
+    let type = "";
+    const energyLevel = answers[1];
+    const socialPreference = answers[2];
+
+    if (energyLevel === "Low - Want something relaxing") {
+      type = "recreational";
+    } else if (energyLevel === "High - Bring it on!") {
+      type = "busywork";
+    } else {
+      if (socialPreference === "Solo activity") {
+        type = "education";
+      } else if (socialPreference === "Group activity") {
+        type = "social";
+      } else {
+        type = ""; // Let API pick any type
+      }
+    }
+
+    try {
+      const url = type
+        ? `https://bored-api.appbrewery.com/random?type=${type}`
+        : `https://bored-api.appbrewery.com/random`;
+      const response = await fetch(url);
+      const data = await response.json();
+      const apiActivity = {
+        name: data.activity,
+        description: data.type ? data.type.charAt(0).toUpperCase() + data.type.slice(1) : 'Random',
+        difficulty: data.accessibility || "Varies",
+        time: data.duration || "Varies",
+        tools: data.link ? data.link : "Varies",
+        icon: "✨",
+        videoId: ""
+      };
+      setLastActivity(suggestedActivity);
+      setSuggestedActivity(apiActivity);
+    } catch (e) {
+      // Fallback to local logic if API fails
+      const newActivity = getSuggestedCategory();
+      setLastActivity(suggestedActivity);
+      setSuggestedActivity(newActivity);
+    }
+  };
+
+  const handleSurpriseMe = async () => {
+    setLoadingSurprise(true);
+    try {
+      const response = await fetch('https://corsproxy.io/?https://bored-api.appbrewery.com/random');
+      const data = await response.json();
+      const surpriseActivity = {
+        name: data.activity,
+        description: data.type ? data.type.charAt(0).toUpperCase() + data.type.slice(1) : 'Random',
+        difficulty: data.accessibility || "Varies",
+        time: data.duration || "Varies",
+        tools: data.link ? data.link : "Varies",
+        icon: "✨",
+        videoId: ""
+      };
+      setLastActivity(suggestedActivity);
+      setSuggestedActivity(surpriseActivity);
+    } catch (e) {
+      alert('Failed to fetch a surprise activity. Try again!');
+    }
+    setLoadingSurprise(false);
   };
 
   const handleStartActivity = () => {
@@ -381,6 +468,13 @@ function OptionsPage() {
           className="bg-white text-black px-4 sm:px-5 py-2 rounded-full shadow-lg transition-all duration-300 hover:bg-white/90 transform hover:-translate-y-1 w-full sm:w-auto"
         >
           Dabble Again!
+        </button>
+        <button
+          onClick={handleSurpriseMe}
+          disabled={loadingSurprise}
+          className="bg-yellow-400 text-black px-4 sm:px-5 py-2 rounded-full shadow-lg transition-all duration-300 hover:bg-yellow-300 transform hover:-translate-y-1 w-full sm:w-auto font-bold disabled:opacity-60"
+        >
+          {loadingSurprise ? 'Loading...' : 'Surprise Me!'}
         </button>
         <button
           onClick={handleGoBack}
