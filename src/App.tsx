@@ -372,8 +372,8 @@ function OptionsPage() {
 
     try {
       const url = type
-        ? `https://bored-api.appbrewery.com/random?type=${type}`
-        : `https://bored-api.appbrewery.com/random`;
+        ? `/api/activity?type=${type}`
+        : `/api/activity`;
       const response = await fetch(url);
       const data = await response.json();
       const apiActivity = {
@@ -398,7 +398,7 @@ function OptionsPage() {
   const handleSurpriseMe = async () => {
     setLoadingSurprise(true);
     try {
-      const response = await fetch('https://corsproxy.io/?https://bored-api.appbrewery.com/random');
+      const response = await fetch('/api/activity');
       const data = await response.json();
       const surpriseActivity = {
         name: data.activity,
