@@ -20,17 +20,32 @@ function Navbar() {
     }
   };
 
+  const handleHome = () => {
+    router.push('/');
+  };
+
   return (
     <nav className="p-4 border-b border-white/20 flex justify-end items-center fixed w-full top-0 z-10 bg-black/80 backdrop-blur-lg">
-      <Link href="/my-goals" legacyBehavior>
-        <a className="mr-4 text-white hover:text-white/80 font-medium">My Goals</a>
-      </Link>
-      <button
-        onClick={handleLogout}
-        className="bg-white text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-white/90"
-      >
-        Logout
-      </button>
+      <div className="flex gap-8 items-center w-full justify-end">
+        <button
+          onClick={handleHome}
+          className="text-white hover:text-white/80 font-medium px-4"
+        >
+          Home
+        </button>
+        <Link href="/my-goals" legacyBehavior>
+          <a className="text-white hover:text-white/80 font-medium px-4 block">My Goals</a>
+        </Link>
+        <Link href="/activity-log" legacyBehavior>
+          <a className="text-white hover:text-white/80 font-medium px-4 block">Activity Log</a>
+        </Link>
+        <button
+          onClick={handleLogout}
+          className="bg-white text-black px-6 py-2 rounded-full text-sm font-medium hover:bg-white/90"
+        >
+          Logout
+        </button>
+      </div>
     </nav>
   );
 }

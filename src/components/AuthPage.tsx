@@ -28,7 +28,7 @@ export default function AuthPage({ onLoginSuccess }: AuthPageProps) {
         initial={{ opacity: 0, scale: 0.95, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-black border border-white/20 p-12 rounded-3xl shadow-2xl w-full max-w-md text-center"
+        className="bg-black border border-white/20 p-12 rounded-3xl shadow-2xl w-full max-w-xl text-center"
       >
         <h2 className="text-3xl font-black text-white mb-8">
           {isLogin ? 'Sign in to your account' : 'Create your account'}

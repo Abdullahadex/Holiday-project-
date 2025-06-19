@@ -24,13 +24,46 @@ export default function ActivityPage() {
 
   const handleAddActivityToGoals = () => {
     if (activityObj) {
-      // You can implement goal saving logic here (e.g., localStorage or API)
+      let currentGoals = [];
+      let userEmail = '';
+      if (typeof window !== 'undefined') {
+        userEmail = localStorage.getItem('dabbly_user_email') || '';
+        const savedGoals = localStorage.getItem(`dabbly_goals_${userEmail}`);
+        currentGoals = savedGoals ? JSON.parse(savedGoals) : [];
+      }
+      const newGoal = {
+        id: Date.now(),
+        text: activityObj.name,
+        completed: false,
+        createdAt: new Date(),
+      };
+      const updatedGoals = [...currentGoals, newGoal];
+      if (userEmail) {
+        localStorage.setItem(`dabbly_goals_${userEmail}`, JSON.stringify(updatedGoals));
+      }
       alert(`${activityObj.name} added to your goals!`);
     }
   };
 
   const handleStartActivity = () => {
     if (activityObj) {
+      let startedActivities = [];
+      let userEmail = '';
+      if (typeof window !== 'undefined') {
+        userEmail = localStorage.getItem('dabbly_user_email') || '';
+        const saved = localStorage.getItem(`dabbly_started_activities_${userEmail}`);
+        startedActivities = saved ? JSON.parse(saved) : [];
+      }
+      const logEntry = {
+        name: activityObj.name,
+        icon: activityObj.icon,
+        description: activityObj.description,
+        startedAt: new Date(),
+      };
+      startedActivities.push(logEntry);
+      if (userEmail) {
+        localStorage.setItem(`dabbly_started_activities_${userEmail}`, JSON.stringify(startedActivities));
+      }
       const videoLinks: { [key: string]: string } = {
         "Learn to Code": "https://www.youtube.com/@freecodecamp",
         "Photography Basics": "https://www.youtube.com/@petermckinnon",

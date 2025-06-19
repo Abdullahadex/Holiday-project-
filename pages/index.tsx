@@ -5,7 +5,14 @@ export default function LandingPage() {
   const router = useRouter();
 
   const handleLetsDabble = () => {
-    router.push("/auth");
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('dabbly_user_token');
+      if (token) {
+        router.push('/questionnaire');
+      } else {
+        router.push('/auth');
+      }
+    }
   };
 
   return (

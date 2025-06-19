@@ -29,7 +29,7 @@ export default function Goals({ goals, toggleGoal, onDeleteGoal, onAddGoal }: Go
 
   return (
     <div className="h-screen w-screen bg-black">
-      <div className="h-full w-full max-w-3xl mx-auto px-4 py-6 flex flex-col">
+      <div className="h-full w-full max-w-5xl mx-auto px-4 py-6 flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-4xl font-bold text-white">

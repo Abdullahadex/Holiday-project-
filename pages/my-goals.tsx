@@ -11,18 +11,26 @@ interface Goal {
 
 export default function GoalsPage() {
   const router = useRouter();
-  const [goals, setGoals] = useState<Goal[]>(() => {
-    if (typeof window !== 'undefined') {
-      const savedGoals = localStorage.getItem('dabbly_goals');
-      return savedGoals ? JSON.parse(savedGoals) : [];
-    }
-    return [];
-  });
+  const [goals, setGoals] = useState<Goal[]>([]);
   const [newGoal, setNewGoal] = useState('');
+  const [userEmail, setUserEmail] = useState('');
 
   useEffect(() => {
-    localStorage.setItem('dabbly_goals', JSON.stringify(goals));
-  }, [goals]);
+    if (typeof window !== 'undefined') {
+      const email = localStorage.getItem('dabbly_user_email');
+      setUserEmail(email || '');
+      if (email) {
+        const savedGoals = localStorage.getItem(`dabbly_goals_${email}`);
+        setGoals(savedGoals ? JSON.parse(savedGoals) : []);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (userEmail) {
+      localStorage.setItem(`dabbly_goals_${userEmail}`, JSON.stringify(goals));
+    }
+  }, [goals, userEmail]);
 
   const handleAddGoal = () => {
     if (newGoal.trim()) {
