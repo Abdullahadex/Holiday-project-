@@ -33,11 +33,11 @@ function Navbar() {
         >
           Home
         </button>
+        <Link href="/dashboard" legacyBehavior>
+          <a className="text-white hover:text-white/80 font-medium px-4 block">Dashboard</a>
+        </Link>
         <Link href="/my-goals" legacyBehavior>
           <a className="text-white hover:text-white/80 font-medium px-4 block">My Goals</a>
-        </Link>
-        <Link href="/activity-log" legacyBehavior>
-          <a className="text-white hover:text-white/80 font-medium px-4 block">Activity Log</a>
         </Link>
         <button
           onClick={handleLogout}

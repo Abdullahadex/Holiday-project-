@@ -31,15 +31,15 @@ export default function ActivityLogPage() {
   }
 
   return (
-    <div className="h-screen w-screen bg-black text-white flex flex-col items-center p-6">
+    <div className="h-screen w-screen bg-black text-white flex flex-col items-center p-6 pt-32">
       <div className="w-full max-w-2xl">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold">Activity Log</h1>
           <button
-            onClick={() => router.push('/')}
+            onClick={() => router.push('/dashboard')}
             className="bg-white text-black px-4 py-2 rounded-lg font-semibold hover:bg-white/90 transition"
           >
-            Home
+            Back to Dashboard
           </button>
         </div>
         {activities.length === 0 ? (

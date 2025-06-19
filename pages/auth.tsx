@@ -52,14 +52,14 @@ export default function AuthPage() {
       localStorage.setItem('dabbly_user_token', 'mock_token_123');
       localStorage.setItem('dabbly_user_email', email);
       localStorage.setItem('dabbly_user_name', user.username);
-      router.push('/questionnaire');
+      router.push('/');
     } else {
       // Sign up: store user info
       localStorage.setItem('dabbly_user_token', 'mock_token_123');
       localStorage.setItem('dabbly_user_email', email);
       localStorage.setItem('dabbly_user_name', username);
       localStorage.setItem(`dabbly_user_${email}`, JSON.stringify({ username, email, password }));
-      router.push('/questionnaire');
+      router.push('/');
     }
   };
 

@@ -87,6 +87,32 @@ export default function ActivityPage() {
     }
   };
 
+  const handleMarkAsCompleted = () => {
+    if (activityObj) {
+      let startedActivities = [];
+      let userEmail = '';
+      if (typeof window !== 'undefined') {
+        userEmail = localStorage.getItem('dabbly_user_email') || '';
+        const saved = localStorage.getItem(`dabbly_started_activities_${userEmail}`);
+        startedActivities = saved ? JSON.parse(saved) : [];
+      }
+      // Find the most recent matching activity
+      for (let i = startedActivities.length - 1; i >= 0; i--) {
+        if (startedActivities[i].name === activityObj.name && !startedActivities[i].completed) {
+          startedActivities[i].completed = true;
+          startedActivities[i].completedAt = new Date();
+          break;
+        }
+      }
+      if (userEmail) {
+        localStorage.setItem(`dabbly_started_activities_${userEmail}`, JSON.stringify(startedActivities));
+      }
+      alert(`${activityObj.name} marked as completed!`);
+      // Redirect to dashboard to show updated stats
+      router.push('/dashboard');
+    }
+  };
+
   if (!activityObj) {
     return null; // Or a loading spinner
   }
@@ -135,6 +161,12 @@ export default function ActivityPage() {
             className="bg-black border border-white/20 text-white font-bold py-2 px-6 sm:px-4 rounded-full shadow-lg hover:bg-white/10 transition duration-300 w-full sm:w-auto"
           >
             New Activity
+          </button>
+          <button
+            onClick={handleMarkAsCompleted}
+            className="bg-green-500 text-white font-bold py-2 px-6 sm:px-4 rounded-full shadow-lg hover:bg-green-400 transition duration-300 w-full sm:w-auto"
+          >
+            Mark as Completed
           </button>
         </div>
       </motion.div>

@@ -2,7 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/my-goals": "pages/my-goals.js",
-  "/auth": "pages/auth.js",
-  "/": "pages/index.js"
+  "/options": "pages/options.js",
+  "/activity/[activityName]": "pages/activity/[activityName].js",
+  "/dashboard": "pages/dashboard.js"
 }

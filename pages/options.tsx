@@ -157,6 +157,11 @@ export default function OptionsPage() {
     if (!router.isReady) return;
     if (answers.length > 0) {
       setSuggestedActivity(getSuggestedCategory());
+    } else {
+      // Pick a random activity from any category as default
+      const allCategories = Object.keys(activities);
+      const randomCategory = allCategories[Math.floor(Math.random() * allCategories.length)];
+      setSuggestedActivity(getRandomActivity(randomCategory));
     }
     // eslint-disable-next-line
   }, [router.isReady, answers]);
