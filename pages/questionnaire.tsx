@@ -47,13 +47,13 @@ export default function QuestionnairePage() {
   const progress = ((currentQuestion + 1) / questions.length) * 100;
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center bg-black overflow-hidden p-2 sm:p-4">
-      <div className="flex flex-col items-center w-full max-w-2xl gap-y-8 text-center px-2 sm:px-4">
+    <div className="h-screen w-screen flex items-center justify-center bg-black overflow-hidden">
+      <div className="flex flex-col items-center w-full max-w-2xl gap-y-8 text-center px-4 sm:px-2">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-black border border-white/20 p-4 sm:p-12 rounded-3xl shadow-2xl w-full relative"
+          className="bg-black border border-white/20 p-12 sm:p-4 rounded-3xl shadow-2xl w-full relative"
         >
           <div className="w-full h-2 bg-white/20 rounded-full mb-8 overflow-hidden">
             <motion.div
@@ -64,7 +64,7 @@ export default function QuestionnairePage() {
             />
           </div>
 
-          <div className="text-white font-bold mb-4 text-base sm:text-lg">
+          <div className="text-white font-bold mb-4 text-lg sm:text-base">
             Question {currentQuestion + 1} of {questions.length}
           </div>
 
@@ -72,13 +72,13 @@ export default function QuestionnairePage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl sm:text-3xl font-black text-white mb-8"
+            className="text-3xl sm:text-xl font-black text-white mb-8"
           >
             {questions[currentQuestion].question}
           </motion.h2>
 
           <div className="flex flex-col items-center justify-center w-full">
-            <div className="w-full max-w-xs flex flex-col items-center">
+            <div className="w-72 sm:w-full flex flex-col items-center">
               {questions[currentQuestion].options.map((option, index) => (
                 <motion.button
                   key={index}
@@ -100,7 +100,7 @@ export default function QuestionnairePage() {
                   }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleAnswer(option, index)}
-                  className="relative bg-white text-black text-base px-4 sm:px-6 py-3 rounded-full shadow-xl transition-all duration-300 font-bold hover:shadow-2xl overflow-hidden group w-full mb-4"
+                  className="relative bg-white text-black text-base px-6 sm:px-4 py-3 sm:py-2 rounded-full shadow-xl transition-all duration-300 font-bold hover:shadow-2xl overflow-hidden group w-full mb-4"
                 >
                   <motion.div
                     initial={{ x: -100, opacity: 0 }}

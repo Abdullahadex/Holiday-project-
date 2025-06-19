@@ -52,14 +52,13 @@ export default function GoalsPage() {
   };
 
   return (
-    <div className="h-screen w-screen bg-black p-2 sm:p-4">
-      <div className="h-full w-full max-w-3xl mx-auto px-2 sm:px-4 py-4 sm:py-6 flex flex-col">
+    <div className="h-screen w-screen bg-black">
+      <div className="h-full w-full max-w-3xl mx-auto px-4 sm:px-2 py-6 sm:py-4 flex flex-col">
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-center justify-between mb-6 gap-2 sm:gap-0">
-          <h1 className="text-2xl sm:text-4xl font-bold text-white">
+          <h1 className="text-4xl sm:text-2xl font-bold text-white">
             My Goals
           </h1>
-          {/* Back button for desktop - removed */}
         </div>
 
         {/* Add new goal section */}
@@ -69,11 +68,11 @@ export default function GoalsPage() {
             placeholder="Add a new goal..."
             value={newGoal}
             onChange={(e) => setNewGoal(e.target.value)}
-            className="flex-1 bg-white/10 border border-white/20 px-4 sm:px-6 py-3 sm:py-4 rounded-l-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/20 transition-all text-base sm:text-lg"
+            className="flex-1 bg-white/10 border border-white/20 px-6 sm:px-4 py-4 sm:py-3 rounded-l-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/20 transition-all text-lg sm:text-base"
           />
           <button
             onClick={handleAddGoal}
-            className="bg-white text-black font-bold px-4 sm:px-6 py-3 sm:py-4 rounded-r-xl shadow-lg hover:bg-white/90 transition duration-300 text-base sm:text-lg"
+            className="bg-white text-black font-bold px-6 sm:px-4 py-4 sm:py-3 rounded-r-xl shadow-lg hover:bg-white/90 transition duration-300 text-lg sm:text-base"
           >
             Add
           </button>
@@ -88,7 +87,7 @@ export default function GoalsPage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="text-white/60 text-center mt-16 text-base sm:text-lg"
+                  className="text-white/60 text-center mt-16 text-lg sm:text-base"
                 >
                   No goals yet. Start by adding one!
                 </motion.div>
@@ -97,7 +96,7 @@ export default function GoalsPage() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => router.push('/')}
-                    className="w-full sm:w-auto bg-white text-black font-bold py-3 px-6 rounded-xl shadow-lg hover:bg-white/90 transition duration-300 flex items-center justify-center gap-2 text-base"
+                    className="w-full sm:w-auto bg-white text-black font-bold py-3 px-6 rounded-xl shadow-lg hover:bg-white/90 transition duration-300 flex items-center justify-center gap-2 text-lg sm:text-base"
                   >
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -114,7 +113,7 @@ export default function GoalsPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
-                  className={`flex flex-col sm:flex-row items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 sm:px-6 py-3 sm:py-4 mb-4 ${goal.completed ? 'opacity-60 line-through' : ''}`}
+                  className={`flex flex-col sm:flex-row items-center justify-between bg-white/5 border border-white/10 rounded-xl px-6 sm:px-4 py-4 sm:py-3 mb-4 ${goal.completed ? 'opacity-60 line-through' : ''}`}
                 >
                   <div className="flex items-center gap-4 w-full">
                     <input
@@ -123,7 +122,7 @@ export default function GoalsPage() {
                       onChange={() => toggleGoal(goal.id)}
                       className="form-checkbox h-5 w-5 text-white/80 focus:ring-white/50"
                     />
-                    <span className="text-base sm:text-lg text-white">{goal.text}</span>
+                    <span className="text-lg sm:text-base text-white">{goal.text}</span>
                   </div>
                   <button
                     onClick={() => deleteGoal(goal.id)}

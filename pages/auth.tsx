@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 
@@ -22,14 +21,14 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center bg-black overflow-hidden p-2 sm:p-4">
+    <div className="h-screen w-screen flex items-center justify-center bg-black overflow-hidden">
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-black border border-white/20 p-4 sm:p-12 rounded-3xl shadow-2xl w-full max-w-xs sm:max-w-md text-center"
+        className="bg-black border border-white/20 p-12 sm:p-4 rounded-3xl shadow-2xl w-full max-w-md text-center"
       >
-        <h2 className="text-xl sm:text-3xl font-black text-white mb-8">
+        <h2 className="text-3xl sm:text-xl font-black text-white mb-8">
           {isLogin ? 'Sign in to your account' : 'Create your account'}
         </h2>
 
@@ -39,14 +38,14 @@ export default function AuthPage() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full bg-white/10 border border-white/20 px-4 sm:px-6 py-3 sm:py-4 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/20 transition-all text-base sm:text-lg"
+            className="w-full bg-white/10 border border-white/20 px-6 sm:px-4 py-4 sm:py-3 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/20 transition-all text-lg sm:text-base"
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full bg-white/10 border border-white/20 px-4 sm:px-6 py-3 sm:py-4 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/20 transition-all text-base sm:text-lg"
+            className="w-full bg-white/10 border border-white/20 px-6 sm:px-4 py-4 sm:py-3 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/20 transition-all text-lg sm:text-base"
           />
         </div>
 
@@ -54,12 +53,12 @@ export default function AuthPage() {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={handleAuth}
-          className="w-full bg-white text-black text-lg px-4 sm:px-8 py-3 sm:py-4 rounded-xl shadow-lg transition-all duration-300 font-black hover:bg-white/90"
+          className="w-full bg-white text-black text-lg sm:text-base px-8 sm:px-4 py-4 sm:py-3 rounded-xl shadow-lg transition-all duration-300 font-black hover:bg-white/90"
         >
           {isLogin ? 'Sign in' : 'Sign up'}
         </motion.button>
 
-        <p className="mt-8 text-white/80 text-base sm:text-lg">
+        <p className="mt-8 text-white/80 text-lg sm:text-base">
           {isLogin ? "Don't have an account?" : "Already have an account?"}{' '}
           <button
             onClick={() => setIsLogin(!isLogin)}
