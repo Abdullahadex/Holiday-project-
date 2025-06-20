@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 
@@ -11,6 +11,8 @@ export default function ActivityPage() {
   } catch {
     activityObj = null;
   }
+
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     if (!activityObj) {
@@ -82,34 +84,9 @@ export default function ActivityPage() {
       if (link) {
         window.open(link, '_blank');
       } else {
-        alert(`Starting: ${activityObj.name}!`);
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 3500);
       }
-    }
-  };
-
-  const handleMarkAsCompleted = () => {
-    if (activityObj) {
-      let startedActivities = [];
-      let userEmail = '';
-      if (typeof window !== 'undefined') {
-        userEmail = localStorage.getItem('dabbly_user_email') || '';
-        const saved = localStorage.getItem(`dabbly_started_activities_${userEmail}`);
-        startedActivities = saved ? JSON.parse(saved) : [];
-      }
-      // Find the most recent matching activity
-      for (let i = startedActivities.length - 1; i >= 0; i--) {
-        if (startedActivities[i].name === activityObj.name && !startedActivities[i].completed) {
-          startedActivities[i].completed = true;
-          startedActivities[i].completedAt = new Date();
-          break;
-        }
-      }
-      if (userEmail) {
-        localStorage.setItem(`dabbly_started_activities_${userEmail}`, JSON.stringify(startedActivities));
-      }
-      alert(`${activityObj.name} marked as completed!`);
-      // Redirect to dashboard to show updated stats
-      router.push('/dashboard');
     }
   };
 
@@ -162,14 +139,24 @@ export default function ActivityPage() {
           >
             New Activity
           </button>
-          <button
-            onClick={handleMarkAsCompleted}
-            className="bg-green-500 text-white font-bold py-2 px-6 sm:px-4 rounded-full shadow-lg hover:bg-green-400 transition duration-300 w-full sm:w-auto"
-          >
-            Mark as Completed
-          </button>
         </div>
       </motion.div>
+      {showToast && (
+        <Toast message={`When you finish, don't forget to mark your activity as done!`} />
+      )}
     </div>
   );
-} 
+}
+
+// Simple Toast component
+function Toast({ message }: { message: string }) {
+  return (
+    <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-white text-black px-6 py-3 rounded-full shadow-lg z-50 text-lg font-semibold animate-fade-in-out">
+      {message}
+    </div>
+  );
+}
+
+// Add animation to index.css:
+// .animate-fade-in-out { animation: fadeInOut 3.5s; }
+// @keyframes fadeInOut { 0% { opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { opacity: 0; } } 

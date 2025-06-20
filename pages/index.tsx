@@ -27,7 +27,7 @@ export default function LandingPage() {
           initial={{ scale: 0.8 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
-          className="text-7xl sm:text-4xl font-extrabold mb-6 drop-shadow-lg text-white"
+          className="text-7xl sm:text-4xl xs:text-2xl font-extrabold mb-6 drop-shadow-lg text-white"
         >
           Welcome to Dabbly <span className="inline-block animate-wave">👋</span>
         </motion.h1>
@@ -35,7 +35,7 @@ export default function LandingPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-3xl sm:text-lg mb-10 opacity-90 text-white/80 font-medium"
+          className="text-3xl sm:text-lg xs:text-base mb-10 opacity-90 text-white/80 font-medium"
         >
           Feeling bored? Let's help you find something awesome to try out!
         </motion.p>

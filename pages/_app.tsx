@@ -2,7 +2,7 @@ import '../src/index.css';
 import type { AppProps } from 'next/app';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function Navbar() {
   const router = useRouter();
@@ -11,12 +11,27 @@ function Navbar() {
   // Hide navbar on /auth
   if (isAuthPage) return null;
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsLoggedIn(!!localStorage.getItem('dabbly_user_token'));
+      // Listen for login/logout events from other tabs
+      const handleStorage = () => {
+        setIsLoggedIn(!!localStorage.getItem('dabbly_user_token'));
+      };
+      window.addEventListener('storage', handleStorage);
+      return () => window.removeEventListener('storage', handleStorage);
+    }
+  }, []);
+
   const handleLogout = () => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('dabbly_user_token');
       localStorage.removeItem('dabbly_user_email');
       localStorage.removeItem('dabbly_goals');
       router.push('/auth');
+      setIsLoggedIn(false);
     }
   };
 
@@ -39,12 +54,14 @@ function Navbar() {
         <Link href="/my-goals" legacyBehavior>
           <a className="text-white hover:text-white/80 font-medium px-4 block">My Goals</a>
         </Link>
-        <button
-          onClick={handleLogout}
-          className="bg-white text-black px-6 py-2 rounded-full text-sm font-medium hover:bg-white/90"
-        >
-          Logout
-        </button>
+        {isLoggedIn && (
+          <button
+            onClick={handleLogout}
+            className="bg-white text-black px-6 py-2 rounded-full text-sm font-medium hover:bg-white/90"
+          >
+            Logout
+          </button>
+        )}
       </div>
     </nav>
   );

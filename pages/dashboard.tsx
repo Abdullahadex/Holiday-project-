@@ -60,6 +60,7 @@ export default function DashboardPage() {
   const [streak, setStreak] = useState(0);
   const [badges, setBadges] = useState<string[]>([]);
   const [quote, setQuote] = useState('');
+  const [reminders, setReminders] = useState<{ startedAt: string; name: string }[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -98,6 +99,22 @@ export default function DashboardPage() {
     setQuote(MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)]);
   }, [goals, activities, completedCount]);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const reminderKeys = Object.keys(localStorage).filter(k => k.startsWith('dabbly_reminder_incomplete_'));
+      const email = localStorage.getItem('dabbly_user_email') || '';
+      const savedActivities = localStorage.getItem(`dabbly_started_activities_${email}`);
+      let acts: ActivityLogEntry[] = [];
+      if (savedActivities) acts = JSON.parse(savedActivities);
+      const reminderList = reminderKeys.map(key => {
+        const startedAt = key.replace('dabbly_reminder_incomplete_', '');
+        const found = acts.find(a => a.startedAt === startedAt);
+        return found ? { startedAt, name: found.name } : null;
+      }).filter(Boolean) as { startedAt: string; name: string }[];
+      setReminders(reminderList);
+    }
+  }, [activities]);
+
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-black via-zinc-900 to-black text-white p-0 md:p-0 flex flex-col items-center relative overflow-x-hidden">
       {/* Top nav/user */}
@@ -116,19 +133,19 @@ export default function DashboardPage() {
       {/* Stats Row */}
       <div className="flex flex-col sm:flex-row gap-6 sm:gap-4 mb-12 w-full max-w-4xl justify-center px-2 sm:px-0 overflow-x-auto scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent">
         {/* Goals Progress Card */}
-        <div className="flex-1 flex-shrink bg-white/10 backdrop-blur-lg rounded-3xl p-4 sm:p-6 flex flex-col items-center shadow-2xl border border-white/10 hover:scale-105 transition-transform duration-300 min-w-[200px] max-w-[350px] mx-auto mb-4 sm:mb-0">
+        <div className="flex-1 flex-shrink bg-white/10 backdrop-blur-lg rounded-3xl p-4 sm:p-6 flex flex-col items-center shadow-2xl border border-white/10 sm:hover:scale-105 transition-transform duration-300 min-w-[200px] max-w-[350px] mx-auto mb-4 sm:mb-0">
           <CircularProgress value={completedCount} max={goals.length || 1} />
           <div className="mt-4 text-xl sm:text-2xl font-bold flex items-center gap-2"><FaCheckCircle style={{ color: '#22d3ee' }} className="animate-bounce" /> Goals Completed</div>
           <div className="text-2xl sm:text-3xl font-extrabold mt-2">{completedCount} / {goals.length || 1}</div>
         </div>
         {/* Streak Card */}
-        <div className="flex-1 flex-shrink bg-gradient-to-br from-orange-500/30 via-orange-400/20 to-yellow-200/10 backdrop-blur-lg rounded-3xl p-4 sm:p-6 flex flex-col items-center shadow-2xl border border-orange-400/40 hover:scale-105 transition-transform duration-300 min-w-[200px] max-w-[350px] mx-auto mb-4 sm:mb-0">
+        <div className="flex-1 flex-shrink bg-gradient-to-br from-orange-500/30 via-orange-400/20 to-yellow-200/10 backdrop-blur-lg rounded-3xl p-4 sm:p-6 flex flex-col items-center shadow-2xl border border-orange-400/40 sm:hover:scale-105 transition-transform duration-300 min-w-[200px] max-w-[350px] mx-auto mb-4 sm:mb-0">
           <FaFire style={{ color: '#ef4444' }} className="text-5xl mb-2 animate-bounce drop-shadow-[0_0_8px_red]" />
           <div className="text-xl sm:text-2xl font-bold text-orange-200">Day Streak</div>
           <div className="text-2xl sm:text-3xl font-extrabold mt-2 text-orange-100">{streak}</div>
         </div>
         {/* Badges Card */}
-        <div className="flex-1 flex-shrink bg-gradient-to-br from-yellow-400/30 via-yellow-200/20 to-white/10 backdrop-blur-lg rounded-3xl p-4 sm:p-6 flex flex-col items-center shadow-2xl border border-yellow-300/40 hover:scale-105 transition-transform duration-300 min-w-[200px] max-w-[350px] mx-auto">
+        <div className="flex-1 flex-shrink bg-gradient-to-br from-yellow-400/30 via-yellow-200/20 to-white/10 backdrop-blur-lg rounded-3xl p-4 sm:p-6 flex flex-col items-center shadow-2xl border border-yellow-300/40 sm:hover:scale-105 transition-transform duration-300 min-w-[200px] max-w-[350px] mx-auto">
           <FaMedal style={{ color: '#fde047' }} className="text-5xl mb-2 drop-shadow-[0_0_8px_gold]" />
           <div className="text-xl sm:text-2xl font-bold text-yellow-200">Badges</div>
           <div className="text-2xl sm:text-3xl font-extrabold mt-2 text-yellow-100">{badges.length}</div>
@@ -137,7 +154,7 @@ export default function DashboardPage() {
       {/* Main Content Grid */}
       <div className="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-40 mb-20 justify-center items-stretch px-2 sm:px-0">
         {/* Recent Activities Card */}
-        <div className="flex-1 min-w-[180px] max-w-[210px] h-[340px] overflow-hidden bg-white/10 backdrop-blur-2xl rounded-3xl p-4 sm:p-6 shadow-2xl border-2 border-cyan-300/40 hover:border-cyan-300/80 hover:shadow-[0_0_32px_8px_rgba(34,211,238,0.7)] hover:scale-105 transition-transform duration-300 flex flex-col items-center mx-auto mb-8 lg:mb-0 sm:mb-0">
+        <div className="flex-1 min-w-[180px] max-w-[210px] h-[340px] overflow-hidden bg-white/10 backdrop-blur-2xl rounded-3xl p-4 sm:p-6 shadow-2xl border-2 border-cyan-300/40 sm:hover:border-cyan-300/80 sm:hover:shadow-[0_0_32px_8px_rgba(34,211,238,0.7)] sm:hover:scale-105 transition-transform duration-300 flex flex-col items-center mx-auto mb-8 lg:mb-0 sm:mb-0">
           <div className="flex flex-col items-center mb-6">
             <FaTasks style={{ color: '#22d3ee' }} className="text-5xl sm:text-6xl animate-pulse drop-shadow-[0_0_16px_cyan] mb-2" />
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-cyan-100 text-center">Recent Activities</h2>
@@ -167,7 +184,7 @@ export default function DashboardPage() {
           </button>
         </div>
         {/* Achievements Card */}
-        <div className="flex-1 min-w-[180px] max-w-[210px] h-[340px] overflow-hidden bg-white/10 backdrop-blur-2xl rounded-3xl p-4 sm:p-6 shadow-2xl border-2 border-yellow-300/40 hover:border-yellow-300/80 hover:shadow-[0_0_32px_8px_rgba(253,224,71,0.7)] hover:scale-105 transition-transform duration-300 flex flex-col items-center mx-auto mb-8 lg:mb-0 sm:mb-0">
+        <div className="flex-1 min-w-[180px] max-w-[210px] h-[340px] overflow-hidden bg-white/10 backdrop-blur-2xl rounded-3xl p-4 sm:p-6 shadow-2xl border-2 border-yellow-300/40 sm:hover:border-yellow-300/80 sm:hover:shadow-[0_0_32px_8px_rgba(253,224,71,0.7)] sm:hover:scale-105 transition-transform duration-300 flex flex-col items-center mx-auto mb-8 lg:mb-0 sm:mb-0">
           <div className="flex flex-col items-center mb-4">
             <FaMedal style={{ color: '#fde047' }} className="text-5xl sm:text-6xl drop-shadow-[0_0_16px_gold] mb-2" />
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-yellow-100 text-center">Achievements</h2>
@@ -193,12 +210,31 @@ export default function DashboardPage() {
           )}
         </div>
         {/* Reminders Card */}
-        <div className="flex-1 min-w-[180px] max-w-[210px] h-[340px] overflow-hidden bg-white/10 backdrop-blur-2xl rounded-3xl p-4 sm:p-6 shadow-2xl border-2 border-purple-300/40 hover:border-purple-300/80 hover:shadow-[0_0_32px_8px_rgba(196,181,253,0.7)] hover:scale-105 transition-transform duration-300 flex flex-col items-center mx-auto sm:mb-0">
+        <div className="flex-1 min-w-[180px] max-w-[210px] h-[340px] overflow-hidden bg-white/10 backdrop-blur-2xl rounded-3xl p-4 sm:p-6 shadow-2xl border-2 border-purple-300/40 sm:hover:border-purple-300/80 sm:hover:shadow-[0_0_32px_8px_rgba(196,181,253,0.7)] sm:hover:scale-105 transition-transform duration-300 flex flex-col items-center mx-auto sm:mb-0">
           <div className="flex flex-col items-center mb-4">
             <FaBell style={{ color: '#a78bfa' }} className="text-5xl sm:text-6xl animate-pulse drop-shadow-[0_0_16px_purple] mb-2" />
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-purple-100 text-center">Reminders</h2>
           </div>
-          <div className="text-white/70 text-lg mb-6 text-center">Reminders coming soon! Stay tuned for updates.</div>
+          {reminders.length === 0 ? (
+            <div className="text-white/70 text-lg mb-6 text-center">No pending activities. You're all caught up!</div>
+          ) : (
+            <div className="flex flex-col gap-3 w-full items-center">
+              {reminders.map(rem => (
+                <div key={rem.startedAt} className="bg-purple-400/20 text-purple-100 px-3 py-2 rounded-xl font-semibold shadow border border-purple-300/30 flex flex-col items-center w-full">
+                  <div className="mb-1 text-sm text-center">
+                    <span className="font-bold">{rem.name}</span><br/>
+                    <span className="text-white/80">You started this activity. Mark it as completed when you're done!</span>
+                  </div>
+                  <button
+                    className="bg-purple-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-purple-400 transition mt-1"
+                    onClick={() => router.push(`/complete-activity/${encodeURIComponent(rem.startedAt)}`)}
+                  >
+                    Complete Now
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
       {/* Mobile Only: Stack Cards Vertically with Extra Gap */}
