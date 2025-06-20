@@ -43,27 +43,8 @@ export default function ActivityPage() {
       if (userEmail) {
         localStorage.setItem(`dabbly_started_activities_${userEmail}`, JSON.stringify(startedActivities));
       }
-      const videoLinks: { [key: string]: string } = {
-        "Learn to Code": "https://www.youtube.com/@freecodecamp",
-        "Photography Basics": "https://www.youtube.com/@petermckinnon",
-        "Write a Short Story": "https://www.youtube.com/@brandonsanderson",
-        "Dance Challenge": "https://www.youtube.com/@MattSDance",
-        "DIY Craft": "https://www.youtube.com/@5MinuteCraftsYouTube",
-        "Movie Quiz Night": "https://www.youtube.com/@CinemaSins",
-        "30-Day Push-Up Challenge": "https://www.youtube.com/@ATHLEANX",
-        "Cold Shower Dare": "https://www.youtube.com/@wimhof1",
-        "No Sugar Day": "https://www.youtube.com/@DrEricBergDC",
-        "Random Act of Kindness": "https://www.youtube.com/@soulpancake",
-        "Try a New Recipe": "https://www.youtube.com/@babishculinaryuniverse",
-        "Backyard Camping": "https://www.youtube.com/@rei"
-      };
-      const link = videoLinks[activityObj.name];
-      if (link) {
-        window.open(link, '_blank');
-      } else {
-        setShowToast(true);
-        setTimeout(() => setShowToast(false), 3500);
-      }
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3500);
     }
   };
 

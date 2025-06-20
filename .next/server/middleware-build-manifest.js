@@ -30,10 +30,15 @@ globalThis.__BUILD_MANIFEST = {
       "static/chunks/main.js",
       "static/chunks/pages/dashboard.js"
     ],
-    "/my-goals": [
+    "/options": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/my-goals.js"
+      "static/chunks/pages/options.js"
+    ],
+    "/questionnaire": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/questionnaire.js"
     ]
   },
   "ampFirstPages": []

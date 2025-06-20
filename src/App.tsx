@@ -13,7 +13,7 @@ interface Goal {
   createdAt: Date;
 }
 
-const activities: { [key: string]: { name: string; description: string; difficulty: string; time: string; tools: string; icon: string; videoId: string; }[] } = {
+const activities: { [key: string]: { name: string; description: string; difficulty: string; time: string; tools: string; icon: string; }[] } = {
   skill: [
     {
       name: "Learn to Code",
@@ -21,8 +21,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Beginner",
       time: "1 hour",
       tools: "Laptop, Internet",
-      icon: "��",
-      videoId: "dQw4w9WgXcQ" // FreeCodeCamp's most popular video
+      icon: "💻"
     },
     {
       name: "Photography Basics",
@@ -30,8 +29,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Easy",
       time: "30 mins",
       tools: "Phone/Camera",
-      icon: "��",
-      videoId: "dQw4w9WgXcQ" // Peter McKinnon's photography basics
+      icon: "📷"
     },
     {
       name: "Write a Short Story",
@@ -39,19 +37,17 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Medium",
       time: "45 mins",
       tools: "Pen & Paper or Computer",
-      icon: "✍️",
-      videoId: "dQw4w9WgXcQ" // Brandon Sanderson's writing lecture
+      icon: "✍️"
     },
   ],
   fun: [
     {
       name: "Dance Challenge",
-      description: "Learn a trending dance from YouTube and perform it!",
+      description: "Learn a trending dance and perform it!",
       difficulty: "Easy",
       time: "20 mins",
       tools: "Music, Space to dance",
-      icon: "��",
-      videoId: "dQw4w9WgXcQ" // Matt Steffanina's dance tutorial
+      icon: "💃"
     },
     {
       name: "DIY Craft",
@@ -59,8 +55,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Easy",
       time: "30 mins",
       tools: "Paper, Scissors, Markers",
-      icon: "��",
-      videoId: "dQw4w9WgXcQ" // 5-Minute Crafts channel
+      icon: "✂️"
     },
     {
       name: "Movie Quiz Night",
@@ -68,8 +63,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Medium",
       time: "1 hour",
       tools: "Quiz app or pen & paper",
-      icon: "��",
-      videoId: "dQw4w9WgXcQ" // CinemaSins channel
+      icon: "🎬"
     },
   ],
   challenge: [
@@ -79,8 +73,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Hard",
       time: "10 mins/day",
       tools: "None",
-      icon: "💪",
-      videoId: "dQw4w9WgXcQ" // Athlean-X's push-up challenge
+      icon: "💪"
     },
     {
       name: "Cold Shower Dare",
@@ -88,8 +81,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Medium",
       time: "5 mins",
       tools: "Shower",
-      icon: "��",
-      videoId: "dQw4w9WgXcQ" // Wim Hof's cold shower method
+      icon: "🚿"
     },
     {
       name: "No Sugar Day",
@@ -97,8 +89,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Medium",
       time: "All day",
       tools: "Willpower!",
-      icon: "��",
-      videoId: "dQw4w9WgXcQ" // Dr. Eric Berg's sugar detox
+      icon: "🍭"
     },
   ],
   surprise: [
@@ -108,8 +99,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Easy",
       time: "15 mins",
       tools: "None",
-      icon: "❤️",
-      videoId: "dQw4w9WgXcQ" // SoulPancake's kindness video
+      icon: "❤️"
     },
     {
       name: "Try a New Recipe",
@@ -117,8 +107,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Medium",
       time: "1 hour",
       tools: "Kitchen, Ingredients",
-      icon: "👨‍��",
-      videoId: "dQw4w9WgXcQ" // Binging with Babish channel
+      icon: "👨‍🍳"
     },
     {
       name: "Backyard Camping",
@@ -126,8 +115,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Fun",
       time: "Evening",
       tools: "Blankets, Pillows, Snacks",
-      icon: "⛺",
-      videoId: "dQw4w9WgXcQ" // REI's camping guide
+      icon: "⛺"
     },
   ],
 };
@@ -390,7 +378,6 @@ function OptionsPage() {
         time: data.duration || "Varies",
         tools: data.link ? data.link : "Varies",
         icon: "✨",
-        videoId: ""
       };
       setLastActivity(suggestedActivity);
       setSuggestedActivity(apiActivity);
@@ -422,7 +409,6 @@ function OptionsPage() {
         time: data.duration || "Varies",
         tools: data.link ? data.link : "Varies",
         icon: "✨",
-        videoId: ""
       };
       setLastActivity(suggestedActivity);
       setSuggestedActivity(surpriseActivity);
@@ -539,26 +525,8 @@ function ActivityPage({ onAddGoal }: ActivityPageProps) {
 
   const handleStartActivity = () => {
     if (activity) {
-      const videoLinks: { [key: string]: string } = {
-        "Learn to Code": "https://www.youtube.com/@freecodecamp",
-        "Photography Basics": "https://www.youtube.com/@petermckinnon",
-        "Write a Short Story": "https://www.youtube.com/@brandonsanderson",
-        "Dance Challenge": "https://www.youtube.com/@MattSDance",
-        "DIY Craft": "https://www.youtube.com/@5MinuteCraftsYouTube",
-        "Movie Quiz Night": "https://www.youtube.com/@CinemaSins",
-        "30-Day Push-Up Challenge": "https://www.youtube.com/@ATHLEANX",
-        "Cold Shower Dare": "https://www.youtube.com/@wimhof1",
-        "No Sugar Day": "https://www.youtube.com/@DrEricBergDC",
-        "Random Act of Kindness": "https://www.youtube.com/@soulpancake",
-        "Try a New Recipe": "https://www.youtube.com/@babishculinaryuniverse",
-        "Backyard Camping": "https://www.youtube.com/@rei"
-      };
-      const link = videoLinks[activity.name];
-      if (link) {
-        window.open(link, '_blank');
-      } else {
-        alert(`Starting: ${activity.name}!`);
-      }
+      // Just start the activity, no external link
+      alert(`Starting: ${activity.name}!`);
     }
   };
 

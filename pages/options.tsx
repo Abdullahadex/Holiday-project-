@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 
-const activities: { [key: string]: { name: string; description: string; difficulty: string; time: string; tools: string; icon: string; videoId: string; }[] } = {
+const activities: { [key: string]: { name: string; description: string; difficulty: string; time: string; tools: string; icon: string; }[] } = {
   skill: [
     {
       name: "Learn to Code",
@@ -10,8 +10,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Beginner",
       time: "1 hour",
       tools: "Laptop, Internet",
-      icon: "💻",
-      videoId: "dQw4w9WgXcQ"
+      icon: "💻"
     },
     {
       name: "Photography Basics",
@@ -19,8 +18,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Easy",
       time: "30 mins",
       tools: "Phone/Camera",
-      icon: "📷",
-      videoId: "dQw4w9WgXcQ"
+      icon: "📷"
     },
     {
       name: "Write a Short Story",
@@ -28,19 +26,17 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Medium",
       time: "45 mins",
       tools: "Pen & Paper or Computer",
-      icon: "✍️",
-      videoId: "dQw4w9WgXcQ"
+      icon: "✍️"
     },
   ],
   fun: [
     {
       name: "Dance Challenge",
-      description: "Learn a trending dance from YouTube and perform it!",
+      description: "Learn a trending dance and perform it!",
       difficulty: "Easy",
       time: "20 mins",
       tools: "Music, Space to dance",
-      icon: "💃",
-      videoId: "dQw4w9WgXcQ"
+      icon: "💃"
     },
     {
       name: "DIY Craft",
@@ -48,8 +44,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Easy",
       time: "30 mins",
       tools: "Paper, Scissors, Markers",
-      icon: "✂️",
-      videoId: "dQw4w9WgXcQ"
+      icon: "✂️"
     },
     {
       name: "Movie Quiz Night",
@@ -57,8 +52,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Medium",
       time: "1 hour",
       tools: "Quiz app or pen & paper",
-      icon: "🎬",
-      videoId: "dQw4w9WgXcQ"
+      icon: "🎬"
     },
   ],
   challenge: [
@@ -68,8 +62,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Hard",
       time: "10 mins/day",
       tools: "None",
-      icon: "💪",
-      videoId: "dQw4w9WgXcQ"
+      icon: "💪"
     },
     {
       name: "Cold Shower Dare",
@@ -77,8 +70,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Medium",
       time: "5 mins",
       tools: "Shower",
-      icon: "🚿",
-      videoId: "dQw4w9WgXcQ"
+      icon: "🚿"
     },
     {
       name: "No Sugar Day",
@@ -86,8 +78,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Medium",
       time: "All day",
       tools: "Willpower!",
-      icon: "🍭",
-      videoId: "dQw4w9WgXcQ"
+      icon: "🍭"
     },
   ],
   surprise: [
@@ -97,8 +88,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Easy",
       time: "15 mins",
       tools: "None",
-      icon: "❤️",
-      videoId: "dQw4w9WgXcQ"
+      icon: "❤️"
     },
     {
       name: "Try a New Recipe",
@@ -106,8 +96,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Medium",
       time: "1 hour",
       tools: "Kitchen, Ingredients",
-      icon: "👨‍🍳",
-      videoId: "dQw4w9WgXcQ"
+      icon: "👨‍🍳"
     },
     {
       name: "Backyard Camping",
@@ -115,8 +104,7 @@ const activities: { [key: string]: { name: string; description: string; difficul
       difficulty: "Fun",
       time: "Evening",
       tools: "Blankets, Pillows, Snacks",
-      icon: "⛺",
-      videoId: "dQw4w9WgXcQ"
+      icon: "⛺"
     },
   ],
 };
@@ -232,8 +220,7 @@ export default function OptionsPage() {
         difficulty: data.accessibility || "Varies",
         time: data.duration || "Varies",
         tools: data.link ? data.link : "Varies",
-        icon: "✨",
-        videoId: ""
+        icon: "✨"
       };
       setLastActivity(suggestedActivity);
       setSuggestedActivity(dabbleActivity);
@@ -260,8 +247,7 @@ export default function OptionsPage() {
         difficulty: data.accessibility || "Varies",
         time: data.duration || "Varies",
         tools: data.link ? data.link : "Varies",
-        icon: "✨",
-        videoId: ""
+        icon: "✨"
       };
       setLastActivity(suggestedActivity);
       setSuggestedActivity(surpriseActivity);
