@@ -122,6 +122,75 @@ function getRandomActivity(category: string) {
   return shuffleArray(arr)[0];
 }
 
+// Keyword-resource map for API activities
+const resourceMap: { [keyword: string]: { resource: string; tip: string } } = {
+  walk: {
+    resource: "https://open.spotify.com/playlist/37i9dQZF1DXdPec7aLTmlC",
+    tip: "Try a new route or listen to a podcast while you walk!"
+  },
+  draw: {
+    resource: "https://www.youtube.com/watch?v=2VbP7TnG3sQ",
+    tip: "Try drawing with your non-dominant hand for fun!"
+  },
+  cook: {
+    resource: "https://tasty.co/",
+    tip: "Pick a recipe with an ingredient you've never used before."
+  },
+  read: {
+    resource: "https://www.gutenberg.org/",
+    tip: "Find a free classic book to read online."
+  },
+  meditate: {
+    resource: "https://www.insighttimer.com/meditation-timer",
+    tip: "Try a 5-minute guided meditation."
+  },
+  clean: {
+    resource: "https://www.youtube.com/watch?v=Q1y4gG6F6Lw",
+    tip: "Set a timer for 10 minutes and see how much you can tidy up!"
+  },
+  dance: {
+    resource: "https://www.youtube.com/results?search_query=dance+tutorial",
+    tip: "Try a dance style you've never tried before!"
+  },
+  yoga: {
+    resource: "https://www.doyogawithme.com/",
+    tip: "Try a beginner yoga flow for relaxation."
+  },
+  journal: {
+    resource: "https://www.journalbuddies.com/journaling-resources/journal-prompts-for-adults/",
+    tip: "Write about something that made you smile today."
+  },
+  garden: {
+    resource: "https://www.rhs.org.uk/advice/beginners-guide",
+    tip: "Try planting something new or just water your plants."
+  },
+  photo: {
+    resource: "https://www.digitalphotomentor.com/photography-challenges/",
+    tip: "Try a photo challenge: capture something red, something round, and something that makes you happy."
+  },
+  puzzle: {
+    resource: "https://www.jigsawexplorer.com/",
+    tip: "Try a new type of puzzle or brain teaser."
+  },
+  call: {
+    resource: "https://www.psychologytoday.com/us/blog/the-moment-youth/201901/the-benefits-calling-friend",
+    tip: "Call a friend or family member you haven't spoken to in a while."
+  },
+  volunteer: {
+    resource: "https://www.volunteermatch.org/",
+    tip: "Find a local or virtual volunteering opportunity."
+  },
+  paint: {
+    resource: "https://www.skillshare.com/browse/painting",
+    tip: "Try painting with a new color palette."
+  },
+  write: {
+    resource: "https://www.writersdigest.com/prompts",
+    tip: "Use a random writing prompt to get started."
+  },
+  // Add more as you see new activities!
+};
+
 export default function OptionsPage() {
   const router = useRouter();
   const [suggestedActivity, setSuggestedActivity] = useState<any>(null);
@@ -214,13 +283,23 @@ export default function OptionsPage() {
       if (!data.activity) {
         throw new Error('No activity in API response');
       }
+      let resource = null, tip = null;
+      for (const keyword in resourceMap) {
+        if (data.activity.toLowerCase().includes(keyword)) {
+          resource = resourceMap[keyword].resource;
+          tip = resourceMap[keyword].tip;
+          break;
+        }
+      }
       const dabbleActivity = {
         name: data.activity,
         description: data.type ? data.type.charAt(0).toUpperCase() + data.type.slice(1) : 'Random',
         difficulty: data.accessibility || "Varies",
         time: data.duration || "Varies",
         tools: data.link ? data.link : "Varies",
-        icon: "✨"
+        icon: "✨",
+        resource,
+        tip
       };
       setLastActivity(suggestedActivity);
       setSuggestedActivity(dabbleActivity);
@@ -241,13 +320,23 @@ export default function OptionsPage() {
       if (!data.activity) {
         throw new Error('No activity in API response');
       }
+      let resource = null, tip = null;
+      for (const keyword in resourceMap) {
+        if (data.activity.toLowerCase().includes(keyword)) {
+          resource = resourceMap[keyword].resource;
+          tip = resourceMap[keyword].tip;
+          break;
+        }
+      }
       const surpriseActivity = {
         name: data.activity,
         description: data.type ? data.type.charAt(0).toUpperCase() + data.type.slice(1) : 'Random',
         difficulty: data.accessibility || "Varies",
         time: data.duration || "Varies",
         tools: data.link ? data.link : "Varies",
-        icon: "✨"
+        icon: "✨",
+        resource,
+        tip
       };
       setLastActivity(suggestedActivity);
       setSuggestedActivity(surpriseActivity);
@@ -294,7 +383,19 @@ export default function OptionsPage() {
             <span className="flex items-center"><span className="text-xl sm:text-base mr-1">⏱️</span> {suggestedActivity.time}</span>
             <span className="flex items-center"><span className="text-xl sm:text-base mr-1">🛠️</span> {suggestedActivity.tools}</span>
           </div>
-
+          {suggestedActivity.resource && suggestedActivity.tip && (
+            <a
+              href={suggestedActivity.resource}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-cyan-500 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:bg-cyan-400 transition duration-300 mb-2"
+            >
+              Get Inspired
+            </a>
+          )}
+          {suggestedActivity.tip && (
+            <div className="text-cyan-300 text-base font-medium mb-2">💡 {suggestedActivity.tip}</div>
+          )}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-2 justify-center mt-4 w-full">
             <button
               onClick={handleStartActivity}

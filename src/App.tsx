@@ -285,7 +285,6 @@ function OptionsPage() {
     if (answers.length > 0) {
       setSuggestedActivity(getSuggestedCategory());
     }
-    // eslint-disable-next-line
   }, [answers]);
 
   // Utility to shuffle an array

@@ -23,16 +23,6 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/activity-log": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/activity-log.js"
-    ],
-    "/dashboard": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/dashboard.js"
-    ],
     "/options": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",

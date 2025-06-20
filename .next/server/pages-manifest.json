@@ -2,8 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/questionnaire": "pages/questionnaire.js",
   "/options": "pages/options.js",
-  "/dashboard": "pages/dashboard.js",
-  "/activity-log": "pages/activity-log.js"
+  "/questionnaire": "pages/questionnaire.js",
+  "/activity/[activityName]": "pages/activity/[activityName].js"
 }
