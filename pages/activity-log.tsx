@@ -99,16 +99,8 @@ export default function ActivityLogPage() {
 
   return (
     <div className="h-screen w-screen bg-black text-white flex flex-col items-center p-6 mt-32">
-      <div className="w-full max-w-2xl">
-        <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold">Activity Log</h1>
-          <button
-            onClick={() => router.push('/dashboard')}
-            className="bg-white text-black px-4 py-2 rounded-lg font-semibold hover:bg-white/90 transition"
-          >
-            Back to Dashboard
-          </button>
-        </div>
+      <div className="w-full max-w-2xl relative">
+        <h1 className="text-4xl sm:text-2xl font-bold text-white text-center w-full mt-4 mb-8">Activity Log</h1>
         {activities.length === 0 ? (
           <div className="text-center text-white/70 mt-20 text-lg">No activities started yet.</div>
         ) : (

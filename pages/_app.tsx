@@ -52,7 +52,7 @@ function Navbar() {
           <a className="text-white hover:text-white/80 font-medium px-4 block">Dashboard</a>
         </Link>
         <Link href="/my-goals" legacyBehavior>
-          <a className="text-white hover:text-white/80 font-medium px-4 block">My Goals</a>
+          <a className="text-white hover:text-white/80 font-medium px-4 block">Goal</a>
         </Link>
         {isLoggedIn && (
           <button

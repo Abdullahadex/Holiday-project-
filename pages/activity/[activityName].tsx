@@ -24,29 +24,6 @@ export default function ActivityPage() {
     router.push("/questionnaire");
   };
 
-  const handleAddActivityToGoals = () => {
-    if (activityObj) {
-      let currentGoals = [];
-      let userEmail = '';
-      if (typeof window !== 'undefined') {
-        userEmail = localStorage.getItem('dabbly_user_email') || '';
-        const savedGoals = localStorage.getItem(`dabbly_goals_${userEmail}`);
-        currentGoals = savedGoals ? JSON.parse(savedGoals) : [];
-      }
-      const newGoal = {
-        id: Date.now(),
-        text: activityObj.name,
-        completed: false,
-        createdAt: new Date(),
-      };
-      const updatedGoals = [...currentGoals, newGoal];
-      if (userEmail) {
-        localStorage.setItem(`dabbly_goals_${userEmail}`, JSON.stringify(updatedGoals));
-      }
-      alert(`${activityObj.name} added to your goals!`);
-    }
-  };
-
   const handleStartActivity = () => {
     if (activityObj) {
       let startedActivities = [];
@@ -128,12 +105,6 @@ export default function ActivityPage() {
             Start Activity
           </button>
           <button
-            onClick={handleAddActivityToGoals}
-            className="bg-black border border-white/20 text-white font-bold py-2 px-6 sm:px-4 rounded-full shadow-lg hover:bg-white/10 transition duration-300 w-full sm:w-auto"
-          >
-            Add to Goals
-          </button>
-          <button
             onClick={getNewActivity}
             className="bg-black border border-white/20 text-white font-bold py-2 px-6 sm:px-4 rounded-full shadow-lg hover:bg-white/10 transition duration-300 w-full sm:w-auto"
           >
@@ -142,7 +113,7 @@ export default function ActivityPage() {
         </div>
       </motion.div>
       {showToast && (
-        <Toast message={`When you finish, don't forget to mark your activity as done!`} />
+        <Toast message={`When you finish, mark your activity as done in the dashboard!`} />
       )}
     </div>
   );

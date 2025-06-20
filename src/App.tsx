@@ -537,13 +537,6 @@ function ActivityPage({ onAddGoal }: ActivityPageProps) {
     navigate("/questionnaire");
   };
 
-  const handleAddActivityToGoals = () => {
-    if (activity) {
-      onAddGoal(activity.name);
-      alert(`${activity.name} added to your goals!`);
-    }
-  };
-
   const handleStartActivity = () => {
     if (activity) {
       const videoLinks: { [key: string]: string } = {
@@ -605,12 +598,6 @@ function ActivityPage({ onAddGoal }: ActivityPageProps) {
             className="bg-white text-black text-base px-6 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:bg-white/90 w-full sm:w-auto"
           >
             Begin Activity
-          </button>
-          <button
-            onClick={handleAddActivityToGoals}
-            className="bg-white text-black text-base px-6 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:bg-white/90 w-full sm:w-auto"
-          >
-            Add to My Goals
           </button>
         </div>
       </motion.div>
@@ -701,7 +688,7 @@ function AppContent() {
                 onClick={() => navigate('/my-goals')}
                 className="mr-4 text-white hover:text-white/80 font-medium"
               >
-                My Goals
+                My Goal
               </button>
               <button
                 onClick={handleLogout}

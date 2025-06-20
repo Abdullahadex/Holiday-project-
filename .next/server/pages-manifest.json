@@ -2,10 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/dashboard": "pages/dashboard.js",
+  "/complete-activity/[startedAt]": "pages/complete-activity/[startedAt].js",
   "/activity-log": "pages/activity-log.js",
-  "/": "pages/index.js",
-  "/questionnaire": "pages/questionnaire.js",
-  "/options": "pages/options.js",
-  "/api/activity": "pages/api/activity.js",
-  "/activity/[activityName]": "pages/activity/[activityName].js"
+  "/my-goals": "pages/my-goals.js"
 }

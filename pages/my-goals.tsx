@@ -64,7 +64,7 @@ export default function GoalsPage() {
       <div className="h-full w-full max-w-3xl mx-auto px-4 sm:px-2 py-6 sm:py-4 flex flex-col">
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-center justify-between mb-6 gap-2 sm:gap-0">
-          <h1 className="text-4xl sm:text-2xl font-bold text-white">
+          <h1 className="text-4xl sm:text-2xl font-bold text-white text-center w-full">
             My Goals
           </h1>
         </div>
