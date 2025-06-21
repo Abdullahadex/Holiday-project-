@@ -117,14 +117,6 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-black via-zinc-900 to-black text-white p-0 md:p-0 flex flex-col items-center relative overflow-x-hidden">
-      {/* Top nav/user */}
-      <div className="w-full flex justify-between items-center px-6 py-4 bg-black/60 backdrop-blur-md sticky top-0 z-10 shadow-lg">
-        <div className="text-2xl font-extrabold tracking-tight">Dabbly</div>
-        <div className="flex items-center gap-3">
-          <FaUserCircle className="text-3xl text-cyan-300 drop-shadow" />
-          <span className="font-semibold text-lg">{userName}</span>
-        </div>
-      </div>
       {/* Greeting & quote */}
       <div className="w-full max-w-4xl text-center mt-8 mb-4">
         <h1 className="text-5xl font-extrabold mb-2 drop-shadow-lg">Welcome{userName ? `, ${userName}` : ''}!</h1>

@@ -64,12 +64,12 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen w-screen flex justify-center bg-black overflow-hidden">
+    <div className="min-h-screen w-screen flex justify-center bg-black overflow-hidden p-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-black border border-white/20 p-12 sm:p-4 rounded-3xl shadow-2xl w-full max-w-md text-center"
+        className="bg-black border border-white/20 p-12 sm:p-4 rounded-3xl shadow-lg w-11/12 max-w-md text-center"
       >
         <h2 className="text-3xl sm:text-xl font-black text-white mb-8">
           {isLogin ? 'Sign in to your account' : 'Create your account'}
@@ -117,6 +117,18 @@ export default function AuthPage() {
             {isLogin ? 'Sign Up' : 'Sign In'}
           </button>
         </p>
+
+        {/* Spacer Div */}
+        <div className="h-16"></div>
+
+        <div>
+          <button
+            onClick={() => router.push('/')}
+            className="small-secondary-button"
+          >
+            ← Back to Home
+          </button>
+        </div>
       </motion.div>
     </div>
   );

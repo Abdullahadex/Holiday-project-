@@ -176,3 +176,22 @@ body.auth-page, html.auth-page {
   90% { opacity: 1; }
   100% { opacity: 0; }
 }
+
+.thin-border-box {
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+}
+
+.small-secondary-button {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  transition: background-color 0.2s;
+}
+
+.small-secondary-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}

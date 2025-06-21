@@ -2,7 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/options": "pages/options.js",
-  "/questionnaire": "pages/questionnaire.js",
-  "/activity/[activityName]": "pages/activity/[activityName].js"
+  "/activity/[activityName]": "pages/activity/[activityName].js",
+  "/dashboard": "pages/dashboard.js",
+  "/activity-log": "pages/activity-log.js",
+  "/auth": "pages/auth.js",
+  "/": "pages/index.js"
 }

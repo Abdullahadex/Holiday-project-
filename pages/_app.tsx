@@ -44,16 +44,20 @@ function Navbar() {
       <div className="flex gap-8 items-center w-full justify-end">
         <button
           onClick={handleHome}
-          className="text-white hover:text-white/80 font-medium px-4"
+          className="text-white hover:text-white/80 font-medium px-4 md:text-lg"
         >
           Home
         </button>
-        <Link href="/dashboard" legacyBehavior>
-          <a className="text-white hover:text-white/80 font-medium px-4 block">Dashboard</a>
-        </Link>
-        <Link href="/my-goals" legacyBehavior>
-          <a className="text-white hover:text-white/80 font-medium px-4 block">Goal</a>
-        </Link>
+        {isLoggedIn && (
+          <>
+            <Link href="/dashboard" legacyBehavior>
+              <a className="text-white hover:text-white/80 font-medium px-4 block md:text-lg">Dashboard</a>
+            </Link>
+            <Link href="/my-goals" legacyBehavior>
+              <a className="text-white hover:text-white/80 font-medium px-4 block md:text-lg">Goal</a>
+            </Link>
+          </>
+        )}
         {isLoggedIn && (
           <button
             onClick={handleLogout}
