@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
+import useIsMobile from '../hooks/useIsMobile';
 
 interface ActivityLogEntry {
   name: string;
@@ -24,6 +25,7 @@ export default function ActivityLogPage() {
   const [reflection, setReflection] = useState('');
   const [timer, setTimer] = useState(60); // 60 seconds
   const [timerActive, setTimerActive] = useState(false);
+  const isMobile = useIsMobile();
 
   // Circular progress for timer
   const timerPct = (60 - timer) / 60;
@@ -102,12 +104,14 @@ export default function ActivityLogPage() {
       <div className="w-full max-w-2xl relative min-h-[120px]">
         <div className="flex justify-between items-center w-full mb-8">
           <h1 className="text-5xl md:text-6xl font-extrabold text-white text-center flex-1">Activity Log</h1>
-          <button
-            onClick={() => router.push('/dashboard')}
-            className="bg-white/10 border border-white/20 text-white/80 font-semibold text-xs px-4 py-2 rounded-full transition-colors duration-200 hover:bg-white/20 ml-4"
-          >
-            ← Back to Dashboard
-          </button>
+          {!isMobile && (
+            <button
+              onClick={() => router.push('/dashboard')}
+              className="bg-white/10 border border-white/20 text-white/80 font-semibold text-xs px-4 py-2 rounded-full transition-colors duration-200 hover:bg-white/20 ml-4 sm:text-[10px] sm:px-2 sm:py-1 sm:rounded"
+            >
+              Dashboard
+            </button>
+          )}
         </div>
         {activities.length === 0 ? (
           <div className="text-center text-white/70 mt-20 text-lg">No activities started yet.</div>

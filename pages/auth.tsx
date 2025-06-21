@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
+import { useAuth } from '../src/context/AuthContext';
 
 function validateEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 export default function AuthPage() {
+  const { setIsLoggedIn } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -52,6 +54,7 @@ export default function AuthPage() {
       localStorage.setItem('dabbly_user_token', 'mock_token_123');
       localStorage.setItem('dabbly_user_email', email);
       localStorage.setItem('dabbly_user_name', user.username);
+      setIsLoggedIn(true);
       router.push('/');
     } else {
       // Sign up: store user info
@@ -59,6 +62,7 @@ export default function AuthPage() {
       localStorage.setItem('dabbly_user_email', email);
       localStorage.setItem('dabbly_user_name', username);
       localStorage.setItem(`dabbly_user_${email}`, JSON.stringify({ username, email, password }));
+      setIsLoggedIn(true);
       router.push('/');
     }
   };

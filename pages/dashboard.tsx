@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { FaCheckCircle, FaFire, FaMedal, FaBullseye, FaTasks, FaBell, FaUserCircle } from 'react-icons/fa';
+import useIsMobile from '../hooks/useIsMobile';
 
 interface Goal {
   id: number;
@@ -62,6 +63,7 @@ export default function DashboardPage() {
   const [quote, setQuote] = useState('');
   const [reminders, setReminders] = useState<{ startedAt: string; name: string }[]>([]);
   const router = useRouter();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -114,6 +116,38 @@ export default function DashboardPage() {
       setReminders(reminderList);
     }
   }, [activities]);
+
+  if (isMobile) {
+    return (
+      <div className="min-h-screen w-full bg-black text-white p-4 flex flex-col gap-6">
+        <h1 className="text-3xl font-extrabold text-center mb-2">Welcome{userName ? `, ${userName}` : ''}!</h1>
+        <div className="mb-4 text-base text-cyan-200/80 italic text-center">{quote}</div>
+        <div className="flex flex-col gap-4">
+          <div className="bg-white/10 rounded-2xl p-4 flex flex-col items-center">
+            <FaCheckCircle style={{ color: '#22d3ee' }} className="text-3xl animate-bounce mb-1" />
+            <span className="text-lg font-bold mb-1">Goals Completed</span>
+            <span className="text-2xl font-extrabold">{completedCount} / {goals.length || 1}</span>
+          </div>
+          <div className="bg-orange-400/20 rounded-2xl p-4 flex flex-col items-center">
+            <FaFire style={{ color: '#ef4444' }} className="text-3xl animate-bounce mb-1" />
+            <span className="text-lg font-bold mb-1">Day Streak</span>
+            <span className="text-2xl font-extrabold">{streak}</span>
+          </div>
+          <div className="bg-yellow-300/20 rounded-2xl p-4 flex flex-col items-center">
+            <FaMedal style={{ color: '#fde047' }} className="text-3xl animate-pulse mb-1" />
+            <span className="text-lg font-bold mb-1">Badges</span>
+            <span className="text-2xl font-extrabold">{badges.length}</span>
+          </div>
+        </div>
+        <button
+          onClick={() => router.push('/activity-log')}
+          className="mt-6 w-full text-base font-extrabold px-4 py-2 rounded-xl shadow-xl bg-cyan-500 text-white hover:bg-cyan-400 transition-all duration-200"
+        >
+          View Activity Log
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-black via-zinc-900 to-black text-white p-0 md:p-0 flex flex-col items-center relative overflow-x-hidden">
